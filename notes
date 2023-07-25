@@ -1,0 +1,1 @@
+- The URL should only be scanned if the user has spent more than 15 seconds on the domain - that way we won't reach the API limit
