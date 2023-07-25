@@ -1,1 +1,8 @@
-- The URL should only be scanned if the user has spent more than 15 seconds on the domain - that way we won't reach the API limit
+- Add a landing page which is shown if the user opens the extension manually
+    - If the current page is scanned it should show stats
+        - green-white color scheme if site is legit
+        - red-white color scheme and warning if site is malicious
+    - If the current domain isn't scanned it should show a loading spinner until the timeout expires and results are ready (blue-white color scheme)
+- Fix the linkage between background script and popup - popup should appear if site is malicious
+- Fetch the VT API key from local storage
+- Implement a form shown on extension install to enter own VT API key which will be saved to local storage and used by the extension
