@@ -1,3 +1,24 @@
+Description:
+`
+A Firefox browser extension which monitors the URLs that the user visits and sends them to a third party API for a scan for malicious domains. The results received from API are interpreted, saved to local storage, and if the site is deemed malicious, the user is alerted. The extension is a "set-and-forget" type of extension. The user installs it, goes through initial setup and leaves it running in the background.
+
+The extension looks at every URL the user visits and extracts the domain part of the URL. It then checks the local storage whether the domain has previously been scanned. In case it wasn't, the URL is sent to VirusTotal API for analysis. After the scan is done, the results are retrieved, interpreted and saved.
+
+Now for the alerting part. If the domain is deemed malicious (more than two engines flagged it as malicious), a popup appears saying something along the lines of: "This website is very likely malicious and trying to deceive you. Do not provide any personal information or sensitive info like: name, contact, address, credit card or bank info". There should also be a "I understand the risk" button which clears the popup. Together with the results of the scan there is also a lastNotified timestamp saved which prevents the extension from spamming the alert on every page refresh. Instead, if the user clicket the "I understand the risk" button, the timestamp is saved and the extension won't alert the user again for that domain in the next 15 minutes.
+
+The extension also has a "home" page which is accessed by clicking the extension icon. The home page contains stats like total domains scanned and a count of malicious domains scanned. It also contains a gear icon which leads the user to setthings page. On the settings page there is an option to change the VirusTotal API key. Another part of the home page is the current page status where it shows the results of scan for the currenly visited domain. That section has three color schemes:
+	- blue-white if the site isn't scanned yet - it also shows a loading spinner
+	- green-white if the site has been scanned and is not malicious - also show a site is safe message
+	- red-white if the site has been scanned and is deemed malicious - also shows the number of engines that think the site is malicious
+
+The initial setup process guides the user through extension setup and here is how it works:
+	- There is a page which explains how the extension works in layman's terms
+	- The list of permissions necessary and a disclaimer that no URLS or any personal data is sent to anyone except for the VirusTotal API for analysis
+	- A page explaining that the user should register to VirusTotal to get a free API key because the extension needs it to work, and that this extension is not in any way affiliated with VirusTotal
+	- On that very page, or on the next one should be a form for the API key and a "Save" button which saves the API key to local storage
+	- "All set up" page which says everything is done and that the user can now enjoy safe browsing
+`
+
 - Add a landing page which is shown if the user opens the extension manually
     - If the current page is scanned it should show stats
         - green-white color scheme if site is legit
