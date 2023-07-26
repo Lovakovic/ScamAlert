@@ -1,3 +1,3 @@
 document.getElementById('close-button').addEventListener('click', function() {
-    window.close();
+    browser.runtime.sendMessage({command: "closeSetupTab"});
 });
