@@ -3,7 +3,7 @@
   "name": "VirusTotal Scanner",
   "version": "1.0",
   "description": "Scans URLs with VirusTotal API",
-  "permissions": ["activeTab", "webRequest", "webRequestBlocking", "storage", "unlimitedStorage", "scripting"],
+  "permissions": ["activeTab", "webRequest", "webRequestBlocking", "storage", "unlimitedStorage", "scripting", "notifications"],
   "background": {
     "scripts": ["background.js"]
   },
