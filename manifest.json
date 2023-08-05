@@ -5,10 +5,11 @@
   "description": "Scans URLs using VirusTotal API",
   "permissions": ["activeTab", "webRequest", "webRequestBlocking", "storage", "unlimitedStorage", "scripting", "notifications"],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["background/background.js"],
+    "type": "module"
   },
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "popup/popup.html",
     "default_icon": {
       "48": "logo.png",
       "96": "logo.png"
