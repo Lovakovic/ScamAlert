@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="warning.css">
+    <title>Dangerous Site Warning</title>
+</head>
+<body>
+<div class="container">
+    <div class="alert alert-danger mt-5">
+        <h1 class="alert-heading">Dangerous Site Detected!</h1>
+        <p class="lead">The site <span id="domain-name"></span> has been flagged as potentially dangerous by multiple sources. Do not reveal any personal information, credit card info or any other sensitive information. Proceed with caution.</p>
+        <hr>
+        <p id="info">Out of <span id="total-engines"></span> engines, <span id="malicious-engines"></span> have deemed this site to be malicious.</p>
+        <button id="close-button" class="btn btn-primary">I understand the risk!</button>
+    </div>
+</div>
+<script src="warning.js"></script>
+</body>
+</html>

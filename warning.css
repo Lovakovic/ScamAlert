@@ -1,0 +1,18 @@
+body {
+    background-color: #f2dede;
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+}
+
+.alert {
+    padding: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+#close-button {
+    margin-top: 10px;
+}
