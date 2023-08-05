@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "VirusTotal Scanner",
+  "name": "ScamAlert",
   "version": "1.0",
-  "description": "Scans URLs with VirusTotal API",
+  "description": "Scans URLs using VirusTotal API",
   "permissions": ["activeTab", "webRequest", "webRequestBlocking", "storage", "unlimitedStorage", "scripting", "notifications"],
   "background": {
     "scripts": ["background.js"]

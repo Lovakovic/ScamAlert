@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="popup.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title>URL scanner</title>
 </head>
 <body>
@@ -9,11 +10,16 @@
     <h1 id="status"></h1>
     <p id="info"></p>
 </div>
+<div id="setup-content" class="d-none">
+    <h2>Setup Needed</h2>
+    <p>No API Key found. Please enter your VirusTotal API Key in the setup page.</p>
+    <button id="setup-button" class="btn btn-primary">Go to Setup</button>
+</div>
 <div id="stats-content">
     <h2>Stats</h2>
     <p>Total domains scanned: <span id="total"></span></p>
     <p>Malicious domains: <span id="malicious"></span></p>
 </div>
-</body>
 <script src="popup.js"></script>
+</body>
 </html>
