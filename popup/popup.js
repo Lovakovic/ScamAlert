@@ -95,7 +95,7 @@ async function main() {
     }
 }
 
-browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+browser.runtime.onMessage.addListener((request) => {
     if (request.command === 'refreshPopup') {
         main();
     }
