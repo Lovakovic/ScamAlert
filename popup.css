@@ -6,6 +6,10 @@ body {
     padding: 0;
 }
 
+.white-text {
+    color: white;
+}
+
 #main-content, #setup-content {
     text-align: center;
     padding: 10px;

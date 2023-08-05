@@ -1,10 +1,28 @@
+function setElementText(id, text) {
+    document.getElementById(id).textContent = text;
+}
+
+function setStatus(message, info, color, textColor) {
+    let mainContent = document.getElementById('main-content');
+    let statusElement = document.getElementById('status');
+    let infoElement = document.getElementById('info');
+
+    mainContent.style.background = color;
+    if (textColor === 'white') {
+        statusElement.classList.add('white-text');
+        infoElement.classList.add('white-text');
+    } else {
+        statusElement.classList.remove('white-text');
+        infoElement.classList.remove('white-text');
+    }
+    statusElement.textContent = message;
+    infoElement.textContent = info;
+}
+
 async function main() {
     let apiKey = (await browser.storage.local.get('apiKey')).apiKey;
 
     let setupContent = document.getElementById('setup-content');
-    let mainContent = document.getElementById('main-content');
-    let statusElement = document.getElementById('status');
-    let infoElement = document.getElementById('info');
     let statsContent = document.getElementById('stats-content');
 
     // If no API key, show setup screen
@@ -20,39 +38,39 @@ async function main() {
 
     let tab = (await browser.tabs.query({ active: true, currentWindow: true }))[0];
     if (!tab) {
-        statusElement.textContent = 'Error: No active tab';
+        setElementText('status', 'Error: No active tab');
         return;
     }
 
     let url = new URL(tab.url);
     let domain = url.hostname;
+
+    if (!url.protocol.startsWith('http')) {
+        setStatus('Site not scanned', 'This site won\'t be scanned as only domains using HTTP or HTTPS protocols will be scanned.', 'blue', 'white');
+        return;
+    }
+
     let result = await browser.storage.local.get(domain);
 
     if (Object.keys(result).length === 0) {
-        // Domain is not in local storage
-        mainContent.style.background = 'blue';
-        statusElement.textContent = 'Loading...';
+        setStatus('Loading...', '', 'blue', 'white');
     } else {
-        // Domain is in local storage
         let stats = result[domain];
-        if (stats.malicious >= 2) {
-            // Site is malicious
-            mainContent.style.background = 'red';
-            statusElement.textContent = 'Warning!';
-            infoElement.textContent = `${stats.malicious} engines flagged this site as malicious.`;
+
+        if (stats.nonHTTP) {
+            setStatus('Site not scanned', 'This site won\'t be scanned as only domains using HTTP or HTTPS protocols will be scanned.', 'blue', 'white');
+        } else if (stats.malicious >= 2) {
+            setStatus('Warning!', `${stats.malicious} engines flagged this site as malicious.`, 'red', 'black');
         } else {
-            // Site is safe
-            mainContent.style.background = 'green';
-            statusElement.textContent = 'Safe';
-            infoElement.textContent = 'This site is safe to visit.';
+            setStatus('Safe', 'This site is safe to visit.', 'green', 'black');
         }
 
         // Display stats
         let total = await browser.storage.local.get('totalScanned');
         let malicious = await browser.storage.local.get('maliciousScanned');
 
-        document.getElementById('total').textContent = total.totalScanned || 0;
-        document.getElementById('malicious').textContent = malicious.maliciousScanned || 0;
+        setElementText('total', total.totalScanned || 0);
+        setElementText('malicious', malicious.maliciousScanned || 0);
     }
 }
 
