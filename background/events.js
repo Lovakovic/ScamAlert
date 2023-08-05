@@ -56,7 +56,7 @@ export function onExtensionInstalled(details) {
 }
 
 // Close the setup on `close` button click
-export function onMessageReceived(request, sender, sendResponse) {
+export function onMessageReceived(request) {
     if (request.command === "closeSetupTab") {
         browser.tabs.query({active: true, currentWindow: true}).then(tabs => {
             browser.tabs.remove(tabs[0].id);
