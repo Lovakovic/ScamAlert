@@ -8,7 +8,11 @@
     "scripts": ["background.js"]
   },
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "logo.png",
+      "96": "logo.png"
+    }
   },
   "web_accessible_resources": [
     {
