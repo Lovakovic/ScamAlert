@@ -1,7 +1,3 @@
-function setElementText(id, text) {
-    document.getElementById(id).textContent = text;
-}
-
 function setStatus(message, info, color, textColor) {
     let mainContent = document.getElementById('main-content');
     let statusElement = document.getElementById('status');
@@ -19,11 +15,43 @@ function setStatus(message, info, color, textColor) {
     infoElement.textContent = info;
 }
 
+function drawChart(total, malicious) {
+    // Create chart
+    let ctx = document.getElementById('myChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Total Scanned', 'Malicious'],
+            datasets: [{
+                data: [total, malicious],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 1)', // color for total (non-transparent)
+                    'rgba(255, 99, 132, 1)'  // color for malicious (non-transparent)
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)', // color for total
+                    'rgba(255, 99, 132, 1)'  // color for malicious
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+        }
+    });
+}
+
 async function main() {
     let apiKey = (await browser.storage.local.get('apiKey')).apiKey;
 
     let setupContent = document.getElementById('setup-content');
     let statsContent = document.getElementById('stats-content');
+
+    // Display stats regardless of the API key or domain status
+    let total = (await browser.storage.local.get('totalScanned')).totalScanned || 0;
+    let malicious = (await browser.storage.local.get('maliciousScanned')).maliciousScanned || 0;
+
+    drawChart(total, malicious);
 
     // If no API key, show setup screen
     if (!apiKey) {
@@ -64,13 +92,6 @@ async function main() {
         } else {
             setStatus('Safe', 'This site is safe to visit.', 'green', 'black');
         }
-
-        // Display stats
-        let total = await browser.storage.local.get('totalScanned');
-        let malicious = await browser.storage.local.get('maliciousScanned');
-
-        setElementText('total', total.totalScanned || 0);
-        setElementText('malicious', malicious.maliciousScanned || 0);
     }
 }
 
