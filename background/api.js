@@ -1,10 +1,6 @@
 import {displayResults} from "./utils.js";
-import {REPORT_FETCH_DELAY_MS} from "../const.js";
+import {REPORT_FETCH_DELAY_MS, VT_API_URLS } from "../const.js";
 
-const vtApiUrls = {
-    postUrl: 'https://www.virustotal.com/api/v3/urls',
-    getAnalysis: 'https://www.virustotal.com/api/v3/analyses/'
-};
 let apiKey = '';
 
 async function getApiKey() {
@@ -22,7 +18,7 @@ export async function postUrl(url) {
     encodedParams.set('url', url);
     console.log(`Posting URL ${url} to VT.`)
     try {
-        let response = await fetch(vtApiUrls.postUrl, {
+        let response = await fetch(VT_API_URLS.POST_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -40,7 +36,7 @@ export async function postUrl(url) {
 }
 
 export async function getAnalysisResults(analysisId) {
-    const url = vtApiUrls.getAnalysis + analysisId;
+    const url = VT_API_URLS.GET_ANALYSIS + analysisId;
     console.log('Fetching URL analysis results in a few seconds.')
 
     try {
