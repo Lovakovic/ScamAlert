@@ -19,11 +19,15 @@ The initial setup process guides the user through extension setup and here is ho
 	- "All set up" page which says everything is done and that the user can now enjoy safe browsing
 `
 
-- Add a landing page which is shown if the user opens the extension manually
-    - If the current page is scanned it should show stats
-        - green-white color scheme if site is legit
-        - red-white color scheme and warning if site is malicious
-    - If the current domain isn't scanned it should show a loading spinner until the timeout expires and results are ready (blue-white color scheme)
-- Fix the linkage between background script and popup - popup should appear if site is malicious
-- Fetch the VT API key from local storage
-- Implement a form shown on extension install to enter own VT API key which will be saved to local storage and used by the extension
+TODO:
+- Local Cache Expiry Strategy:
+    Goal: Ensure that cached results are up-to-date and relevant, given that the status of a domain (malicious or safe) can change over time.
+    Action: Implement an expiration mechanism for cached results. After a certain period (e.g., 30 days), old results should be invalidated and the domain should be rescanned when next visited.
+
+- Exponential Backoff Retry Strategy:
+    Goal: Efficiently handle situations where scan results are not immediately available.
+    Action: If a scan result is not ready, implement a system to wait progressively longer periods between retries. Start with an initial delay (e.g., 20 seconds), and then double the wait time with each subsequent retry, up to a maximum limit.
+
+- Rate Limit Awareness:
+    Goal: Prevent reaching the API call limits set by VirusTotal.
+    Action: Implement logic to track the number of API calls made within a specific timeframe (minute, day, month). If the extension is nearing the limit, it should temporarily hold off on making new requests until it's safe to resume.
