@@ -43,6 +43,7 @@ function drawChart(safe, malicious) {
 async function main() {
     let apiKey = (await browser.storage.local.get('apiKey')).apiKey;
 
+    let mainContent = document.getElementById('main-content');
     let setupContent = document.getElementById('setup-content');
     let statsContent = document.getElementById('stats-content');
 
@@ -61,7 +62,8 @@ async function main() {
         mainContent.classList.add("d-none");
         statsContent.classList.add("d-none");
         document.getElementById('setup-button').addEventListener('click', function() {
-            browser.tabs.create({ url: "welcome.html" });
+            console.log('setup button clicked')
+            browser.tabs.create({ url: "../setup/welcome.html" });
         });
         return;
     }
