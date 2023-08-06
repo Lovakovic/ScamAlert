@@ -4,12 +4,11 @@ A Firefox browser extension which monitors the URLs that the user visits and sen
 
 The extension looks at every URL the user visits and extracts the domain part of the URL. It then checks the local storage whether the domain has previously been scanned. In case it wasn't, the URL is sent to VirusTotal API for analysis. After the scan is done, the results are retrieved, interpreted and saved.
 
-Now for the alerting part. If the domain is deemed malicious (more than two engines flagged it as malicious), a popup appears saying something along the lines of: "This website is very likely malicious and trying to deceive you. Do not provide any personal information or sensitive info like: name, contact, address, credit card or bank info". There should also be a "I understand the risk" button which clears the popup. Together with the results of the scan there is also a lastNotified timestamp saved which prevents the extension from spamming the alert on every page refresh. Instead, if the user clicket the "I understand the risk" button, the timestamp is saved and the extension won't alert the user again for that domain in the next 15 minutes.
+Now for the alerting part. If the domain is deemed malicious (more than two engines flagged it as malicious), a new tab opens with a page alerting the user that the site is deemed unsafe. Together with the results of the scan there is also a lastNotified timestamp saved which prevents the extension from spamming the alert on every page refresh. Instead, if the user clicket the "I understand the risk" button, the timestamp is saved and the extension won't alert the user again for that domain in predefined amount of time.
 
-The extension also has a "home" page which is accessed by clicking the extension icon. The home page contains stats like total domains scanned and a count of malicious domains scanned. It also contains a gear icon which leads the user to setthings page. On the settings page there is an option to change the VirusTotal API key. Another part of the home page is the current page status where it shows the results of scan for the currenly visited domain. That section has three color schemes:
-	- blue-white if the site isn't scanned yet - it also shows a loading spinner
-	- green-white if the site has been scanned and is not malicious - also show a site is safe message
-	- red-white if the site has been scanned and is deemed malicious - also shows the number of engines that think the site is malicious
+Along the alert timeout, each scan has a validity period defined as a constant, after which the scan is delete from local storage and the extension will then perform a brand new scan if the user visits that domain again.
+
+The extension also has a "home" page which is accessed by clicking the extension icon. The home page contains stats like total domains scanned and a count of malicious domains scanned. It also contains a gear icon which leads the user to settings page. On the settings page there is an option to change the VirusTotal API key. Another part of the home page is the current page status where it shows the results of scan for the currently visited domain.
 
 The initial setup process guides the user through extension setup and here is how it works:
 	- There is a page which explains how the extension works in layman's terms
