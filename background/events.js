@@ -1,5 +1,6 @@
 import { postUrl } from './api.js';
 import {POST_URL_TIMEOUT_MS} from "../const.js";
+import {notifyIfDomainIsMalicious} from "./utils.js";
 
 const tabTimeouts = {};
 const tabDomains = {};
@@ -23,22 +24,23 @@ export async function onTabUpdated(tabId, changeInfo, tab) {
             if (tabTimeouts[tabId]) {
                 clearTimeout(tabTimeouts[tabId]);
             }
-            // Set a new timeout for the current tab
-            tabTimeouts[tabId] = setTimeout(async () => {
-                // Check if domain is in local storage
-                let result = await browser.storage.local.get(domain);
+            // Check if domain is in local storage first
+            let domainData = await browser.storage.local.get(domain);
 
-                if (Object.keys(result).length === 0 && result.constructor === Object) {
-                    // If not in storage, post the domain for analysis
+            if (Object.keys(domainData).length !== 0 && domainData.constructor === Object) {
+                await notifyIfDomainIsMalicious(domain, domainData[domain]);
+            } else {
+                // If not in storage, set a new timeout to post the domain for analysis after timeout
+                tabTimeouts[tabId] = setTimeout(async () => {
                     await postUrl(domain);
-                }
-            }, POST_URL_TIMEOUT_MS);
-
+                }, POST_URL_TIMEOUT_MS);
+            }
             // Save the new domain
             tabDomains[tabId] = domain;
         }
     }
 }
+
 
 // Handle tab removal - cancel timeout for domain whose tab was closed
 export function onTabRemoved(tabId) {

@@ -19,10 +19,6 @@ The initial setup process guides the user through extension setup and here is ho
 `
 
 TODO:
-- Local Cache Expiry Strategy:
-    Goal: Ensure that cached results are up-to-date and relevant, given that the status of a domain (malicious or safe) can change over time.
-    Action: Implement an expiration mechanism for cached results. After a certain period (e.g., 30 days), old results should be invalidated and the domain should be rescanned when next visited.
-
 - Exponential Backoff Retry Strategy:
     Goal: Efficiently handle situations where scan results are not immediately available.
     Action: If a scan result is not ready, implement a system to wait progressively longer periods between retries. Start with an initial delay (e.g., 20 seconds), and then double the wait time with each subsequent retry, up to a maximum limit.

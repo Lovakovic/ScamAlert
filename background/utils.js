@@ -1,4 +1,21 @@
-import {SCAN_EXPIRY_DURATION} from "../const.js";
+import {NOTIFICATION_EXPIRY, SCAN_EXPIRY_DURATION} from "../const.js";
+
+export async function notifyIfDomainIsMalicious(domain, results) {
+    const currentTime = Date.now();
+
+    let lastNotified = results?.lastNotified || 0;
+
+    if (results.malicious >= 2 && (lastNotified === 0 || currentTime - lastNotified > NOTIFICATION_EXPIRY)) {
+        // Show warning for malicious site
+        browser.tabs.create({
+            url: `warn/warning.html?domain=${domain}`,
+            active: true
+        });
+
+        // Update last notified timestamp
+        await browser.storage.local.set({ [domain]: { ...results, lastNotified: currentTime } });
+    }
+}
 
 export async function displayResults(data) {
     let url = new URL(data.meta.url_info.url);
@@ -8,7 +25,7 @@ export async function displayResults(data) {
     console.log(`Saving ${domain} analysis results to local storage.`)
 
     // Save the results along with timestamp to local storage
-    const currentTime = Date.now(); // This returns the current time in milliseconds
+    const currentTime = Date.now();
     await browser.storage.local.set({[domain]: {...results, timestamp: currentTime}});
 
     // Count total domains scanned and malicious domains
@@ -24,16 +41,13 @@ export async function displayResults(data) {
 
     total.totalScanned += 1;
 
-    // If two or more engines determined the domain to be malicious, show warning
+    // If two or more engines determined the domain to be malicious, notify
     if (results.malicious >= 2) {
         malicious.maliciousScanned += 1;
-
-        // Open the warning page
-        browser.tabs.create({
-            url: `warn/warning.html?domain=${domain}`,
-            active: true
-        });
     }
+
+    // Use the notifyMaliciousDomain function
+    await notifyIfDomainIsMalicious(domain, results);
 
     // Save updated stats to local storage
     await browser.storage.local.set({totalScanned: total.totalScanned});
@@ -44,7 +58,6 @@ export async function displayResults(data) {
         browser.runtime.sendMessage({command: 'refreshPopup'});
     }
 }
-
 
 export async function cleanupExpiredScans() {
     let storageData = await browser.storage.local.get();
