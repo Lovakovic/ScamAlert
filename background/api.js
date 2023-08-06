@@ -1,11 +1,11 @@
 import {displayResults} from "./utils.js";
+import {REPORT_FETCH_DELAY_MS} from "../const.js";
 
 const vtApiUrls = {
     postUrl: 'https://www.virustotal.com/api/v3/urls',
     getAnalysis: 'https://www.virustotal.com/api/v3/analyses/'
 };
 let apiKey = '';
-const REPORT_FETCH_DELAY_MS = 20000;
 
 async function getApiKey() {
     let result = await browser.storage.local.get('apiKey');

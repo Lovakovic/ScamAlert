@@ -1,6 +1,6 @@
 import { postUrl } from './api.js';
+import {POST_URL_TIMEOUT_MS} from "../const.js";
 
-const POST_URL_TIMEOUT_MS = 10000;
 const tabTimeouts = {};
 const tabDomains = {};
 
