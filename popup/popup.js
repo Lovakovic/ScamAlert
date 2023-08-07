@@ -1,6 +1,7 @@
 const greenColor = '#3e9444';
 const blueColor = '#3e6294';
 const redColor = '#9c1c1c';
+let statsChart;
 
 function setStatus(message, info, color) {
     let mainContent = document.getElementById('main-content');
@@ -17,7 +18,13 @@ function setStatus(message, info, color) {
 function drawChart(safe, malicious) {
     // Create chart
     let ctx = document.getElementById('myChart').getContext('2d');
-    new Chart(ctx, {
+
+    // Check if a chart instance already exists. If yes, destroy it.
+    if (statsChart) {
+        statsChart.destroy();
+    }
+
+    statsChart = new Chart(ctx, {
         type: 'pie',
         data: {
             labels: ['Safe', 'Malicious'],
