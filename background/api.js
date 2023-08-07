@@ -38,6 +38,10 @@ export async function postUrl(url) {
 export async function getAnalysisResults(analysisId, retryCount = 0) {
     const url = VT_API_URLS.GET_ANALYSIS + analysisId;
 
+    if (retryCount === 0) {
+        await new Promise(resolve => setTimeout(resolve, REPORT_FETCH_DELAY_MS));
+    }
+
     try {
         let response = await fetch(url, {
             method: 'GET',
