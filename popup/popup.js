@@ -62,7 +62,7 @@ async function main() {
         mainContent.classList.add("d-none");
         statsContent.classList.add("d-none");
         document.getElementById('setup-button').addEventListener('click', function() {
-            browser.tabs.create({ url: ".../setup/welcome.html" });
+            browser.tabs.create({ url: "../setup/welcome.html" });
         });
         return;
     }
