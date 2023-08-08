@@ -19,6 +19,12 @@ The initial setup process guides the user through extension setup and here is ho
 `
 
 TODO:
+- !URGENT! - Investigate why does the extension cause a huge memory request which crashes Firefox
+	- Use memory profiling in DevTools to find out when and how does the issue happen
+	- Try disabling other extensions
+	- Comment out parts of the code for chart drawing and see if issue persists
+	- Check if there are any rapid redraws or updates which might be causing the graphics errors
+
 - Rate Limit Awareness:
     Goal: Prevent reaching the API call limits set by VirusTotal.
     Action: Implement logic to track the number of API calls made within a specific timeframe (minute, day, month). If the extension is nearing the limit, it should temporarily hold off on making new requests until it's safe to resume.
@@ -26,3 +32,15 @@ TODO:
 - Implement i18n internationalization of the extension
     Goal: Translate the entire extension to Croatian and English
     Action: Use the Firefox i18n API to translate all of the text in extension to Croatian and English.
+
+- Validate the API key on entry
+	Goal: Validate the API key entered during setup of the extension
+	Action: Either find an VirusTotal API endpoint whose purpose is to validate the API key or just fire a request towards one of the previously used endpoints and check for 401 response. In case the key is invalid alert the user.
+
+- Allow the user to force a domain scan or force a refresh of a scan manually
+	Goal: Allow the user to manually override scan behavior and timeouts
+	Action: Add a button to popup which will force a new scan of the current domain.
+
+- Check if sufficient permissions are granted before running the extension
+	Goal: Alert the user in popup if not sufficient permissions aren't granted to the extension
+	Action: Check if permissions are granted
