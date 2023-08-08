@@ -34,3 +34,7 @@ TODO:
 - Allow the user to force a domain scan or force a refresh of a scan manually
 	Goal: Allow the user to manually override scan behavior and timeouts
 	Action: Add a button to popup which will force a new scan of the current domain.
+
+- Check if sufficient permissions are granted before running the extension
+	Goal: Alert the user in popup if not sufficient permissions aren't granted to the extension
+	Action: Check if permissions are granted
