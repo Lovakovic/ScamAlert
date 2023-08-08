@@ -16,7 +16,5 @@ B
 popup/chart.min.js,e/3/e33bff480204c6523f4d931b173636dd0675c872
 A
 background/api.js,3/d/3d087fc021a3abfd3e0713a9efc83f76507f49d4
-5
-notes,3/a/3add7b9612102f2a7dbe4ed4fe886e07e847c24d
 >
 popup/popup.js,2/8/2840344f74922677035de31b19fb014ac0a46c58

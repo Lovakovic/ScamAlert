@@ -26,3 +26,11 @@ TODO:
 - Implement i18n internationalization of the extension
     Goal: Translate the entire extension to Croatian and English
     Action: Use the Firefox i18n API to translate all of the text in extension to Croatian and English.
+
+- Validate the API key on entry
+	Goal: Validate the API key entered during setup of the extension
+	Action: Either find an VirusTotal API endpoint whose purpose is to validate the API key or just fire a request towards one of the previously used endpoints and check for 401 response. In case the key is invalid alert the user.
+
+- Allow the user to force a domain scan or force a refresh of a scan manually
+	Goal: Allow the user to manually override scan behavior and timeouts
+	Action: Add a button to popup which will force a new scan of the current domain.
