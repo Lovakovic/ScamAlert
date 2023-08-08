@@ -29,9 +29,13 @@ export async function processUrlForAnalysis(tabId, changeInfo, tab) {
             await notifyIfDomainIsMalicious(domain, domainData[domain]);
         } else {
             tabTimeouts[tabId] = setTimeout(async () => {
-                const analysisId = await postUrl(domain);
-                if (analysisId) {
-                    await getAndHandleAnalysisResults(analysisId);
+                try {
+                    const analysisId = await postUrl(domain);
+                    if (analysisId) {
+                        await getAndHandleAnalysisResults(analysisId);
+                    }
+                } catch (error) {
+                    console.error('Error during URL posting or handling analysis results:', error.message);
                 }
             }, POST_URL_TIMEOUT_MS);
         }
@@ -49,8 +53,12 @@ export function removeTabFromTracking(tabId) {
 }
 
 async function getAndHandleAnalysisResults(analysisId) {
-    const data = await getAnalysisResults(analysisId);
-    if (data) {
-        await displayResults(data);
+    try {
+        const data = await getAnalysisResults(analysisId);
+        if (data) {
+            await displayResults(data);
+        }
+    } catch (error) {
+        console.error('Error during analysis result fetching or displaying results:', error.message);
     }
 }

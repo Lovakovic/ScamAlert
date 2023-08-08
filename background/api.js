@@ -2,17 +2,16 @@ import { VT_API_URLS, REPORT_FETCH_DELAY_MS, REPORT_FETCH_MAX_RETRIES } from "..
 
 let apiKey = '';
 
-async function getApiKey() {
+async function ensureApiKey() {
     let result = await browser.storage.local.get('apiKey');
-    return result.apiKey || '';
+    apiKey = result.apiKey || '';
+    if (!apiKey) {
+        throw new Error("API key is not available.");
+    }
 }
 
 export async function postUrl(url) {
-    apiKey = await getApiKey();
-    if (!apiKey) {
-        console.log("No API key is provided so URL couldn't be scanned.");
-        return null;
-    }
+    await ensureApiKey();
 
     const encodedParams = new URLSearchParams();
     encodedParams.set('url', url);
@@ -27,12 +26,14 @@ export async function postUrl(url) {
         body: encodedParams
     });
 
-    console.log('Analyzing ', url)
+    console.log('Analyzing', url)
     const data = await response.json();
     return data.data.id;
 }
 
 export async function getAnalysisResults(analysisId, retryCount = 0) {
+    await ensureApiKey();
+
     const url = VT_API_URLS.GET_ANALYSIS + analysisId;
 
     if (retryCount === 0) {
@@ -64,10 +65,12 @@ export async function getAnalysisResults(analysisId, retryCount = 0) {
 }
 
 /**
-     * Fetches the quota summary for the user and returns the relevant details.
-     * @returns {Object} Quota details of interest.
-     */
+ * Fetches the quota summary for the user and returns the relevant details.
+ * @returns {Object} Quota details of interest.
+ */
 export async function getQuotaSummary() {
+    await ensureApiKey();
+
     const url = `${VT_API_URLS.GET_QUOTAS}${apiKey}/overall_quotas`;
 
     try {

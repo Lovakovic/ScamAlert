@@ -25,6 +25,8 @@ TODO:
 	- Comment out parts of the code for chart drawing and see if issue persists
 	- Check if there are any rapid redraws or updates which might be causing the graphics errors
 
+- Replace `setTimeout` with alarms since `setTimeout` isn't guaranteed to work properly in non-persistent scripts
+
 - Rate Limit Awareness:
     Goal: Prevent reaching the API call limits set by VirusTotal.
     Action: Implement logic to track the number of API calls made within a specific timeframe (minute, day, month). If the extension is nearing the limit, it should temporarily hold off on making new requests until it's safe to resume.
