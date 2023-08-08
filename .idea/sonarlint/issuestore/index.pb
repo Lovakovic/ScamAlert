@@ -6,7 +6,3 @@
 :
 
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
-C
-background/utils.js,8/7/870d03284c281db6d32150981d4954af114431d3
-A
-background/api.js,3/d/3d087fc021a3abfd3e0713a9efc83f76507f49d4
