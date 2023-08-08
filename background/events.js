@@ -14,7 +14,6 @@ export async function onTabUpdated(tabId, changeInfo, tab) {
 
         if (!url.protocol.startsWith('http')) {
             console.log(`Ignoring URL with non-HTTP protocol: ${url.href}`);
-            await browser.storage.local.set({[domain]: {nonHTTP: true}});
             return;
         }
 
