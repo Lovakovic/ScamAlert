@@ -70,3 +70,43 @@ export async function cleanupExpiredScans() {
         }
     }
 }
+
+export async function cleanupAnalysisIds(domain) {
+    await browser.storage.local.remove(`analysisId-${domain}`);
+    await browser.storage.local.remove(`retryCount-${domain}`);
+}
+
+export async function setAlarmForDomain(domain, delayInMinutes, analysisId) {
+    const alarmName = `analysis-${domain}`;
+    await browser.alarms.create(alarmName, { delayInMinutes });
+    await browser.storage.local.set({
+        [alarmName]: domain,
+        [`analysisId-${domain}`]: analysisId
+    });
+}
+
+export async function clearAlarmForDomain(domain) {
+    const alarmName = `analysis-${domain}`;
+    await browser.alarms.clear(alarmName);
+    await browser.storage.local.remove(alarmName);
+    await browser.storage.local.remove(`analysisId-${domain}`);
+}
+
+export async function setRetryAlarmForAnalysis(domain, retryCount) {
+    const alarmName = `retry-analysis-${domain}-${retryCount}`;
+    const delayInMinutes = Math.pow(2, retryCount);
+    await browser.alarms.create(alarmName, { delayInMinutes });
+}
+
+export async function markDomainAsPendingAnalysis(domain) {
+    await browser.storage.local.set({ [`pending-${domain}`]: true });
+}
+
+export async function clearPendingAnalysisForDomain(domain) {
+    await browser.storage.local.remove(`pending-${domain}`);
+}
+
+export async function isDomainPendingAnalysis(domain) {
+    const data = await browser.storage.local.get(`pending-${domain}`);
+    return data.hasOwnProperty(`pending-${domain}`);
+}

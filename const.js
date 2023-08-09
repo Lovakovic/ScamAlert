@@ -1,6 +1,6 @@
 // Timeouts for saving API calls
 export const POST_URL_TIMEOUT_MS = 10 * 1000;
-export const REPORT_FETCH_DELAY_MS = 1;
+export const REPORT_FETCH_DELAY_MS = 20 * 1000;
 export const REPORT_FETCH_MAX_RETRIES = 3;
 
 // Removal of stale scan results
