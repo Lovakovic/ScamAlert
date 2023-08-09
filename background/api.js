@@ -1,4 +1,4 @@
-import { VT_API_URLS, REPORT_FETCH_DELAY_MS, REPORT_FETCH_MAX_RETRIES } from "../const.js";
+import {REPORT_FETCH_DELAY_MS, VT_API_URLS} from "../const.js";
 
 let apiKey = '';
 
@@ -31,15 +31,10 @@ export async function postUrl(url) {
     return data.data.id;
 }
 
-export async function getAnalysisResults(analysisId, retryCount = 0) {
+export async function getAnalysisResults(analysisId) {
     await ensureApiKey();
-
     const url = VT_API_URLS.GET_ANALYSIS + analysisId;
-
-    if (retryCount === 0) {
-        await new Promise(resolve => setTimeout(resolve, REPORT_FETCH_DELAY_MS));
-    }
-
+    await new Promise(resolve => setTimeout(resolve, REPORT_FETCH_DELAY_MS));
     let response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -47,20 +42,13 @@ export async function getAnalysisResults(analysisId, retryCount = 0) {
             'x-apikey': apiKey
         }
     });
-
     let data = await response.json();
 
     if (data.data.attributes.status === "completed") {
         return data;
     } else {
-        if (retryCount < REPORT_FETCH_MAX_RETRIES) {
-            console.log('Analysis results aren\'t ready, retrying soon.')
-            await new Promise(resolve => setTimeout(resolve, Math.pow(2, retryCount) * REPORT_FETCH_DELAY_MS));
-            return await getAnalysisResults(analysisId, retryCount + 1);
-        } else {
-            console.error("Max retries reached. Analysis is not ready.");
-            return null;
-        }
+        console.log('Analysis results aren\'t ready, scheduling a retry.')
+        return null;
     }
 }
 

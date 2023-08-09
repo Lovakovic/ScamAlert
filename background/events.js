@@ -1,4 +1,4 @@
-import { processUrlForAnalysis, removeTabFromTracking } from './service.js';
+import {handleAlarmForAnalysis, processUrlForAnalysis, removeTabFromTracking} from './service.js';
 
 // Monitor tab updates to check when a new URL is loaded
 export async function onTabUpdated(tabId, changeInfo, tab) {
@@ -6,7 +6,7 @@ export async function onTabUpdated(tabId, changeInfo, tab) {
 }
 
 // Handle tab removal - cancel timeout for domain whose tab was closed
-export function onTabRemoved(tabId) {
+export async function onTabRemoved(tabId) {
     removeTabFromTracking(tabId);
 }
 
@@ -23,5 +23,14 @@ export function onMessageReceived(request) {
         browser.tabs.query({active: true, currentWindow: true}).then(tabs => {
             browser.tabs.remove(tabs[0].id);
         });
+    }
+}
+
+// Listens to an alarm for fetching URL analysis and calls the logic for processing it
+export async function onAlarmReceived(alarm) {
+    const storedValue = await browser.storage.local.get(alarm.name);
+    const tabId = storedValue[alarm.name];
+    if (tabId) {
+        await handleAlarmForAnalysis(tabId);
     }
 }
