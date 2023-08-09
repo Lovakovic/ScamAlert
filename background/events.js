@@ -1,28 +1,22 @@
-import {
-    handleAlarmForAnalysisRetrieval,
-    processUrlForAnalysis,
-    removeDomainFromTracking
-} from './service.js';
-
 // Monitor tab updates to check when a new URL is loaded
-export async function onTabUpdated(tabId, changeInfo, tab) {
-    await processUrlForAnalysis(tabId, changeInfo, tab);
-}
+import {clearTabTimeout, fetchResults, handleTabUpdated} from "./domainService.js";
+import {getDomainByAnalysisId} from "./storage.js";
 
-// Handle tab removal - cancel timeout for domain whose tab was closed
-export async function onTabRemoved(tabId) {
-    await removeDomainFromTracking(tabId);
+export const onTabUpdated = async (tabId, changeInfo, tab) => {
+    await handleTabUpdated(tabId, changeInfo, tab);
 }
 
 // Display setup after extension is installed
-export function onExtensionInstalled(details) {
+export const onExtensionInstalled = async (details) => {
     if (details.reason === "install") {
-        browser.tabs.create({ url: "../setup/welcome.html" });
+        // Open the welcome setup page when the extension is installed
+        browser.tabs.create({ url: '../setup/welcome.html' });
     }
 }
 
+// TODO: Implement a check whether the entered API key is valid
 // Close the setup on `close` button click
-export function onMessageReceived(request) {
+export const onMessageReceived = async (request) => {
     if (request.command === "closeSetupTab") {
         browser.tabs.query({active: true, currentWindow: true}).then(tabs => {
             browser.tabs.remove(tabs[0].id);
@@ -30,11 +24,15 @@ export function onMessageReceived(request) {
     }
 }
 
-// Listens to an alarm for fetching URL analysis and calls the logic for processing it
-export async function onAlarmReceived(alarm) {
-    const storedValue = await browser.storage.local.get(alarm.name);
-    const tabId = storedValue[alarm.name];
-    if (tabId) {
-        await handleAlarmForAnalysisRetrieval(tabId);
+// Fetches the analysis results for domain with an ID in alarm name
+export const onAlarmReceived = async (alarm) => {
+    const domain = await getDomainByAnalysisId(alarm.name);
+    if (domain) {
+        await fetchResults(alarm.name, domain);
     }
+}
+
+// Removes the timeout for posting a URL for analysis
+export const onTabRemoved = async (tabId) => {
+    clearTabTimeout(tabId);
 }

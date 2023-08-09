@@ -1,6 +1,6 @@
 Description:
 `
-A Firefox browser extension which monitors the URLs that the user visits and sends them to a third party API for a scan for malicious domains. The results received from API are interpreted, saved to local storage, and if the site is deemed malicious, the user is alerted. The extension is a "set-and-forget" type of extension. The user installs it, goes through initial setup and leaves it running in the background.
+A Firefox browser extension which monitors the URLs that the user visits and sends them to VirusTotal API for analysis. It's made using Manifest V3. The results received from API are interpreted, saved to local storage, and if the site is deemed malicious, the user is alerted. The extension is a "set-and-forget" type of extension. The user installs it, goes through initial setup and leaves it running in the background.
 
 The extension looks at every URL the user visits and extracts the domain part of the URL. It then checks the local storage whether the domain has previously been scanned. In case it wasn't, the URL is sent to VirusTotal API for analysis. After the scan is done, the results are retrieved, interpreted and saved.
 

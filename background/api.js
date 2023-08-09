@@ -2,7 +2,7 @@ import {REPORT_FETCH_DELAY_MS, VT_API_URLS} from "../const.js";
 
 let apiKey = '';
 
-async function ensureApiKey() {
+const ensureApiKey = async () => {
     let result = await browser.storage.local.get('apiKey');
     apiKey = result.apiKey || '';
     if (!apiKey) {
@@ -10,7 +10,7 @@ async function ensureApiKey() {
     }
 }
 
-export async function postUrl(url) {
+export const postUrl = async (url) => {
     await ensureApiKey();
 
     const encodedParams = new URLSearchParams();
@@ -31,7 +31,7 @@ export async function postUrl(url) {
     return data.data.id;
 }
 
-export async function getAnalysisResults(analysisId) {
+export const getAnalysisResults = async (analysisId) => {
     await ensureApiKey();
     const url = VT_API_URLS.GET_ANALYSIS + analysisId;
     await new Promise(resolve => setTimeout(resolve, REPORT_FETCH_DELAY_MS));

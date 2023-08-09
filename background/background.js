@@ -1,8 +1,7 @@
-import {onTabUpdated, onTabRemoved, onExtensionInstalled, onMessageReceived, onAlarmReceived} from './events.js';
-import {cleanupExpiredScans} from "./utils.js";
-import {CLEANUP_INTERVAL} from "../const.js";
+import {onAlarmReceived, onExtensionInstalled, onMessageReceived, onTabRemoved, onTabUpdated} from "./events.js";
 
-setInterval(cleanupExpiredScans, CLEANUP_INTERVAL);
+// Ignoring this for now, it'll have to be replaced with an alarm since the script is non-persistent
+// setInterval(cleanupExpiredScans, CLEANUP_INTERVAL);
 
 browser.tabs.onUpdated.addListener(onTabUpdated);
 browser.tabs.onRemoved.addListener(onTabRemoved);

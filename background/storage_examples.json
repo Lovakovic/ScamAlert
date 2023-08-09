@@ -1,0 +1,18 @@
+{
+  "domains": {
+    "example.com": {
+      "malicious": 2,
+      "timestamp": 1628488582260,
+      "lastNotified": 1628488582260
+    },
+    "another-site.com": {
+      "malicious": 0,
+      "timestamp": 1628488592260
+    }
+  },
+  "pendingScans": {
+    "pending-site.com": "analysisId_1234"
+  },
+  "totalScanned": 2,
+  "maliciousScanned": 1
+}
