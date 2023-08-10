@@ -75,8 +75,8 @@ async function main() {
     }
 
     let tab = (await browser.tabs.query({ active: true, currentWindow: true }))[0];
-    if (!tab) {
-        setElementText('status', 'Error: No active tab');
+    if (!tab?.url) {
+        setStatus('Site not scanned', 'Error: No active tab');
         return;
     }
 
