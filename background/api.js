@@ -1,4 +1,4 @@
-import {REPORT_FETCH_DELAY_MS, VT_API_URLS} from "../const.js";
+import {VT_API_URLS} from "../const.js";
 
 let apiKey = '';
 
@@ -34,7 +34,6 @@ export const postUrl = async (url) => {
 export const getAnalysisResults = async (analysisId) => {
     await ensureApiKey();
     const url = VT_API_URLS.GET_ANALYSIS + analysisId;
-    await new Promise(resolve => setTimeout(resolve, REPORT_FETCH_DELAY_MS));
     let response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -47,7 +46,7 @@ export const getAnalysisResults = async (analysisId) => {
     if (data.data.attributes.status === "completed") {
         return data;
     } else {
-        console.log('Analysis results aren\'t ready, scheduling a retry.')
+        console.log('Analysis results aren\'t ready.')
         return null;
     }
 }
