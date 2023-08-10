@@ -1,16 +1,26 @@
 const ALARM_DATA_KEY = 'alarmData';
 const PENDING_SCANS_KEY = 'pendingScans';
 const RETRY_COUNT_KEY = "retryCounts";
+const ANALYSIS_RESULTS_KEY = 'analysisResults';
+
+export const getApiKey = async () => {
+    return (await browser.storage.local.get('apiKey')).apiKey;
+}
 
 // Function to get domain data
 export const getDomainData = async (domain) => {
-    const data = await browser.storage.local.get(`domains.${domain}`);
-    return data?.[`domains.${domain}`] || null;
+    const data = await browser.storage.local.get(ANALYSIS_RESULTS_KEY);
+    return data?.[ANALYSIS_RESULTS_KEY]?.[domain] || null;
 }
 
 // Function to save domain data
 export const setDomainData = async (domain, results) => {
-    await browser.storage.local.set({ [`domains.${domain}`]: results });
+    const currentData = await browser.storage.local.get(ANALYSIS_RESULTS_KEY);
+    const updatedResults = {
+        ...currentData?.[ANALYSIS_RESULTS_KEY],
+        [domain]: results
+    };
+    await browser.storage.local.set({ [ANALYSIS_RESULTS_KEY]: updatedResults });
 }
 
 // Function to mark a domain with last notified timestamp
@@ -33,6 +43,16 @@ export const hasDomainBeenScanned = async (domain) => {
     const data = await getDomainData(domain);
     return data !== null;
 };
+
+// Returns the total count of scanned domains
+export const getTotalScannedCount = async () => {
+    return (await browser.storage.local.get('totalScanned')).totalScanned || 0;
+}
+
+// Returns the total count of malicious domains scanned
+export const getMaliciousScannedCount = async () => {
+    return (await browser.storage.local.get('maliciousScanned')).maliciousScanned || 0;
+}
 
 // Function to check if a domain scan is pending
 export const isDomainPendingScanResults = async (domain) => {

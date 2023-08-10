@@ -1,3 +1,5 @@
+import {getApiKey, getDomainData, getMaliciousScannedCount, getTotalScannedCount} from "../background/storage.js";
+
 const greenColor = '#3e9444';
 const blueColor = '#3e6294';
 const redColor = '#9c1c1c';
@@ -48,15 +50,15 @@ function drawChart(safe, malicious) {
 }
 
 async function main() {
-    let apiKey = (await browser.storage.local.get('apiKey')).apiKey;
+    let apiKey = await getApiKey();
 
     let mainContent = document.getElementById('main-content');
     let setupContent = document.getElementById('setup-content');
     let statsContent = document.getElementById('stats-content');
 
     // Display stats regardless of the API key or domain status
-    let total = (await browser.storage.local.get('totalScanned')).totalScanned || 0;
-    let malicious = (await browser.storage.local.get('maliciousScanned')).maliciousScanned || 0;
+    let total = await getTotalScannedCount();
+    let malicious = await getMaliciousScannedCount();
     let safe = total - malicious;
 
     document.getElementById('totalSites').textContent = "Total Sites Scanned: " + total;
@@ -88,20 +90,17 @@ async function main() {
         return;
     }
 
-    let result = await browser.storage.local.get(`domains.${domain}`);
+    let domainData = await getDomainData(domain);
 
-    if (Object.keys(result).length === 0) {
+    if (!domainData) {
         setStatus('Loading...', '', blueColor);
-    } else {
-        let stats = result[`domains.${domain}`];
+        return;
+    }
 
-        if (stats.nonHTTP) {
-            setStatus('Site not scanned', 'This site won\'t be scanned as only domains using HTTP or HTTPS protocols are scanned.', blueColor);
-        } else if (stats.malicious >= 2) {
-            setStatus('Warning!', `${stats.malicious} engines flagged this site as malicious.`, redColor);
-        } else {
-            setStatus('Safe', 'This site is safe to visit.', greenColor);
-        }
+    if (domainData.malicious >= 2) {
+        setStatus('Warning!', `${domainData.malicious} engines flagged this site as malicious.`, redColor);
+    } else {
+        setStatus('Safe', 'This site is safe to visit.', greenColor);
     }
 }
 
