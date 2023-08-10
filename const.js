@@ -9,6 +9,8 @@ export const CLEANUP_INTERVAL_MIN = 24 * 60; // Once a day
 
 export const NOTIFICATION_EXPIRY_MS = 15 * 60 *  1000; // 15 minutes
 
+export const MALICIOUS_THRESHOLD = 2;
+
 export const VT_API_URLS = {
     POST_URL: 'https://www.virustotal.com/api/v3/urls',
     GET_ANALYSIS: 'https://www.virustotal.com/api/v3/analyses/',

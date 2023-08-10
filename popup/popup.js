@@ -1,4 +1,5 @@
 import {getApiKey, getDomainData, getMaliciousScannedCount, getTotalScannedCount} from "../background/storage.js";
+import {MALICIOUS_THRESHOLD} from "../const";
 
 const greenColor = '#3e9444';
 const blueColor = '#3e6294';
@@ -97,7 +98,7 @@ async function main() {
         return;
     }
 
-    if (domainData.malicious >= 2) {
+    if (domainData.malicious >= MALICIOUS_THRESHOLD) {
         setStatus('Warning!', `${domainData.malicious} engines flagged this site as malicious.`, redColor);
     } else {
         setStatus('Safe', 'This site is safe to visit.', greenColor);

@@ -5,14 +5,14 @@ import {
     setAlarmData,
     setDomainData
 } from "./storage.js";
-import {NOTIFICATION_EXPIRY_MS} from "../const.js";
+import {MALICIOUS_THRESHOLD, NOTIFICATION_EXPIRY_MS} from "../const.js";
 
 export const extractDomainFromUrl = (url) => {
     const urlObject = new URL(url);
     return urlObject.hostname;
 }
 
-// Function to handle the results
+// Handles the results of analysis by saving them and alerting the user if necessary
 export const saveAndDisplayResults = async (data) => {
     const url = new URL(data.meta.url_info.url);
     const domain = url.hostname;
@@ -28,7 +28,7 @@ export const saveAndDisplayResults = async (data) => {
     await incrementScannedCounter('totalScanned');
 
     // If two or more engines determined the domain to be malicious, notify and increment malicious counter
-    if (results.malicious >= 2) {
+    if (results.malicious >= MALICIOUS_THRESHOLD) {
         await incrementScannedCounter('maliciousScanned');
         await notifyAboutMaliciousDomain(domain, results);
     }
@@ -44,7 +44,7 @@ export const checkIfSavedDomainIsMalicious = async (domain) => {
     const domainData = await getDomainData(domain);
     if (domainData) {
         // Check if the domain is determined to be malicious by two or more engines
-        if (domainData.malicious >= 2) {
+        if (domainData.malicious >= MALICIOUS_THRESHOLD) {
             await notifyAboutMaliciousDomain(domain, domainData);
         }
     } else {
