@@ -1,11 +1,11 @@
 import {
-    cleaAlarmDataFromStorage,
+    cleaAlarmDataFromStorage, getDomainData,
     incrementScannedCounter,
     markDomainAsNotified,
     setAlarmData,
     setDomainData
 } from "./storage.js";
-import {NOTIFICATION_EXPIRY} from "../const.js";
+import {NOTIFICATION_EXPIRY_MS} from "../const.js";
 
 export const extractDomainFromUrl = (url) => {
     const urlObject = new URL(url);
@@ -39,11 +39,24 @@ export const saveAndDisplayResults = async (data) => {
     }
 }
 
+// Checks if notification timeout has expired for a domain and triggers a re-notification in case it did
+export const checkIfSavedDomainIsMalicious = async (domain) => {
+    const domainData = await getDomainData(domain);
+    if (domainData) {
+        // Check if the domain is determined to be malicious by two or more engines
+        if (domainData.malicious >= 2) {
+            await notifyAboutMaliciousDomain(domain, domainData);
+        }
+    } else {
+        console.warn(`No data found for domain: ${domain}`);
+    }
+};
+
 export const notifyAboutMaliciousDomain = async (domain, results) => {
     const currentTime = Date.now();
     const lastNotified = results?.lastNotified || 0;
 
-    if (lastNotified === 0 || currentTime - lastNotified > NOTIFICATION_EXPIRY) {
+    if (lastNotified === 0 || currentTime - lastNotified > NOTIFICATION_EXPIRY_MS) {
         // Show warning for malicious site
         browser.tabs.create({
             url: `warn/warning.html?domain=${domain}`,

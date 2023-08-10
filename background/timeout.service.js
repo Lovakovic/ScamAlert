@@ -20,7 +20,7 @@ export const setTabTimeout = async (tabId, domain, timeoutCallback, delay) => {
     }
 }
 
-export const clearTabTimeout = (tabId, currentDomain) => {
+export const manageScanTimeoutsForDomain = (tabId, currentDomain) => {
     const previousDomain = tabTimeouts[tabId]?.domain;
 
     if (previousDomain && previousDomain !== currentDomain) {

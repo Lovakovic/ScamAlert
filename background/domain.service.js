@@ -7,9 +7,14 @@ import {
     removeDomainFromPending
 } from "./storage.js";
 import {POST_URL_TIMEOUT_MS, REPORT_FETCH_DELAY_MS, REPORT_FETCH_MAX_RETRIES} from "../const.js";
-import {clearAlarmData, createAlarmForAnalysisRetrieval, saveAndDisplayResults, extractDomainFromUrl} from "./utils.js";
 import {
-    clearTabTimeout,
+    clearAlarmData,
+    createAlarmForAnalysisRetrieval,
+    saveAndDisplayResults,
+    extractDomainFromUrl, checkIfSavedDomainIsMalicious
+} from "./utils.js";
+import {
+    manageScanTimeoutsForDomain,
     isDomainPendingImmediatePost,
     markDomainAsPendingImmediatePost,
     setTabTimeout
@@ -27,11 +32,14 @@ export const handleTabUpdated = async (tabId, changeInfo, tab) => {
     }
 
     const domain = extractDomainFromUrl(url);
-    clearTabTimeout(tabId, domain);
+    manageScanTimeoutsForDomain(tabId, domain);
 
-    // Check if domain has already been scanned
     const isScanned = await hasDomainBeenScanned(domain);
-    if (isScanned) return;
+    if (isScanned){
+        // Check if we need to re-notify the user
+        await checkIfSavedDomainIsMalicious(domain);
+        return;
+    }
 
     // Check if the domain is in the immediate pending list
     if (isDomainPendingImmediatePost(domain)) return;

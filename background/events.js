@@ -1,7 +1,7 @@
 // Monitor tab updates to check when a new URL is loaded
 import { handleTabUpdated, fetchResultsWithRetries} from "./domain.service.js";
 import { getDomainByAnalysisId } from "./storage.js";
-import { clearTabTimeout } from "./timeout.service.js";
+import { manageScanTimeoutsForDomain } from "./timeout.service.js";
 
 export const onTabUpdated = async (tabId, changeInfo, tab) => {
     await handleTabUpdated(tabId, changeInfo, tab);
@@ -35,5 +35,5 @@ export const onAlarmReceived = async (alarm) => {
 
 // Removes the timeout for posting a URL for analysis
 export const onTabRemoved = async (tabId) => {
-    clearTabTimeout(tabId);
+    manageScanTimeoutsForDomain(tabId);
 }
