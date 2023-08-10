@@ -7,7 +7,7 @@ import {
     removeDomainFromPending
 } from "./storage.js";
 import {POST_URL_TIMEOUT_MS, REPORT_FETCH_DELAY_MS, REPORT_FETCH_MAX_RETRIES} from "../const.js";
-import {clearAlarmData, createAlarmForAnalysisRetrieval, displayResults, extractDomainFromUrl} from "./utils.js";
+import {clearAlarmData, createAlarmForAnalysisRetrieval, saveAndDisplayResults, extractDomainFromUrl} from "./utils.js";
 import {
     clearTabTimeout,
     isDomainPendingImmediatePost,
@@ -87,7 +87,7 @@ export const fetchResults = async (analysisId, domain) => {
     if (!data) {
         throw new Error("ResultsNotReady");
     }
-    await displayResults(data);
+    await saveAndDisplayResults(data);
 
     // Cleanup
     await removeDomainFromPending(domain);

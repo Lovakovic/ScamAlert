@@ -13,7 +13,7 @@ export const extractDomainFromUrl = (url) => {
 }
 
 // Function to handle the results
-export const displayResults = async (data) => {
+export const saveAndDisplayResults = async (data) => {
     const url = new URL(data.meta.url_info.url);
     const domain = url.hostname;
     const results = data.data.attributes.stats;
