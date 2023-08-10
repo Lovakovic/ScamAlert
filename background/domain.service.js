@@ -46,7 +46,6 @@ export const handleTabUpdated = async (tabId, changeInfo, tab) => {
     // Delay the POST request to not spam the API
     await setTabTimeout(tabId, domain, async () => {
         const analysisId = await postUrl(domain);
-        console.log(domain, 'posted for analysis.')
 
         // Update the analysisId for the domain in the pending list
         await markDomainAsPendingResults(domain, analysisId);
@@ -93,9 +92,6 @@ export const fetchResults = async (analysisId, domain) => {
     // Cleanup
     await removeDomainFromPending(domain);
     await clearAlarmData(analysisId);
-
-    // Notify popup to refresh its contents
-    browser.runtime.sendMessage({ command: 'refreshPopup' });
 };
 
 // Sets a timeout for analysis results retrieval, as well as an alarm which will wake the script up if it gets unmounted
