@@ -1,11 +1,15 @@
+import { getDomainData } from "../background/storage.js";
+
 async function init() {
     let domain = new URLSearchParams(window.location.search).get('domain');
-    let stats = await browser.storage.local.get(domain);
+    let stats = await getDomainData(domain);  // Use the getDomainData function from storage logic
 
-    document.getElementById('domain-name').textContent = domain;
-    document.getElementById('total-engines').textContent = stats[domain].harmless + stats[domain].malicious +
-        stats[domain].suspicious + stats[domain].undetected;
-    document.getElementById('malicious-engines').textContent = stats[domain].malicious;
+    if (stats) {
+        document.getElementById('domain-name').textContent = domain;
+        document.getElementById('total-engines').textContent = stats.harmless + stats.malicious +
+            stats.suspicious + stats.undetected;
+        document.getElementById('malicious-engines').textContent = stats.malicious;
+    }
 
     document.getElementById('close-button').addEventListener('click', () => window.close());
 }

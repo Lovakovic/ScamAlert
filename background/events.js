@@ -1,6 +1,7 @@
 // Monitor tab updates to check when a new URL is loaded
-import {clearTabTimeout, fetchResults, handleTabUpdated} from "./domainService.js";
-import {getDomainByAnalysisId} from "./storage.js";
+import { handleTabUpdated, fetchResultsWithRetries} from "./domain.service.js";
+import { getDomainByAnalysisId } from "./storage.js";
+import { clearTabTimeout } from "./timeout.service.js";
 
 export const onTabUpdated = async (tabId, changeInfo, tab) => {
     await handleTabUpdated(tabId, changeInfo, tab);
@@ -28,7 +29,7 @@ export const onMessageReceived = async (request) => {
 export const onAlarmReceived = async (alarm) => {
     const domain = await getDomainByAnalysisId(alarm.name);
     if (domain) {
-        await fetchResults(alarm.name, domain);
+        await fetchResultsWithRetries(alarm.name, domain);
     }
 }
 

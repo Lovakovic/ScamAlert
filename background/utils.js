@@ -1,4 +1,10 @@
-import {incrementScannedCounter, markDomainAsNotified, setDomainData} from "./storage.js";
+import {
+    cleaAlarmDataFromStorage,
+    incrementScannedCounter,
+    markDomainAsNotified,
+    setAlarmData,
+    setDomainData
+} from "./storage.js";
 import {NOTIFICATION_EXPIRY} from "../const.js";
 
 export const extractDomainFromUrl = (url) => {
@@ -48,3 +54,19 @@ export const notifyAboutMaliciousDomain = async (domain, results) => {
         await markDomainAsNotified(domain);
     }
 }
+
+export const createAlarmForAnalysisRetrieval = async (analysisId, domain) => {
+    // Set an alarm as a backup method to fetch results
+    await setAlarmData(analysisId, domain);
+    browser.alarms.create(analysisId, { delayInMinutes: 1.0 });
+}
+
+// Function to clear alarm data after it's been used
+export const clearAlarmData = async (analysisId) => {
+    const existingAlarm = await browser.alarms.get(analysisId);
+    if (existingAlarm) {
+        browser.alarms.clear(analysisId);
+    }
+
+    await cleaAlarmDataFromStorage(analysisId)
+};

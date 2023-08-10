@@ -1,5 +1,6 @@
 const ALARM_DATA_KEY = 'alarmData';
 const PENDING_SCANS_KEY = 'pendingScans';
+const RETRY_COUNT_KEY = "retryCounts";
 
 // Function to get domain data
 export const getDomainData = async (domain) => {
@@ -34,13 +35,13 @@ export const hasDomainBeenScanned = async (domain) => {
 };
 
 // Function to check if a domain scan is pending
-export const isDomainPendingScan = async (domain) => {
+export const isDomainPendingScanResults = async (domain) => {
     const { pendingScans } = await browser.storage.local.get(PENDING_SCANS_KEY);
     return pendingScans?.[domain] !== undefined;
 };
 
 // Function to mark a domain as pending a scan
-export const markDomainAsPending = async (domain, analysisId) => {
+export const markDomainAsPendingResults = async (domain, analysisId) => {
     const { pendingScans } = await browser.storage.local.get(PENDING_SCANS_KEY);
     const updatedPendingScans = {
         ...pendingScans,
@@ -58,6 +59,12 @@ export const removeDomainFromPending = async (domain) => {
     }
 };
 
+// Function to retrieve domain for a given analysis ID
+export const getDomainByAnalysisId = async (analysisId) => {
+    const { alarmData } = await browser.storage.local.get(ALARM_DATA_KEY);
+    return alarmData?.[analysisId];
+};
+
 // Function to store alarm data for later retrieval
 export const setAlarmData = async (analysisId, domain) => {
     const { alarmData: currentAlarms } = await browser.storage.local.get(ALARM_DATA_KEY);
@@ -68,18 +75,25 @@ export const setAlarmData = async (analysisId, domain) => {
     await browser.storage.local.set({ [ALARM_DATA_KEY]: updatedAlarms });
 };
 
-// Function to retrieve domain for a given analysis ID
-export const getDomainByAnalysisId = async (analysisId) => {
-    const { alarmData } = await browser.storage.local.get(ALARM_DATA_KEY);
-    return alarmData?.[analysisId];
-};
-
-// Function to clear alarm data after it's been used
-export const clearAlarmData = async (analysisId) => {
-    browser.alarms.clear(analysisId);
+export const cleaAlarmDataFromStorage = async (analysisId) => {
+    // Check and remove the alarm data from storage
     const { alarmData: currentAlarms } = await browser.storage.local.get(ALARM_DATA_KEY);
     if (currentAlarms?.[analysisId]) {
         delete currentAlarms[analysisId];
         await browser.storage.local.set({ [ALARM_DATA_KEY]: currentAlarms });
     }
+}
+
+export const getRetryCount = async (analysisId) => {
+    const { retryCounts } = await browser.storage.local.get(RETRY_COUNT_KEY);
+    return retryCounts?.[analysisId] || 0;
+};
+
+export const increaseRetryCount = async (analysisId) => {
+    const { retryCounts: currentRetryCounts } = await browser.storage.local.get(RETRY_COUNT_KEY);
+    const updatedRetryCounts = {
+        ...currentRetryCounts,
+        [analysisId]: (currentRetryCounts?.[analysisId] || 0) + 1
+    };
+    await browser.storage.local.set({ [RETRY_COUNT_KEY]: updatedRetryCounts });
 };
