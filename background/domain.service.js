@@ -58,9 +58,6 @@ export const handleTabUpdated = async (tabId, changeInfo, tab) => {
         // Update the analysisId for the domain in the pending list
         await markDomainAsPendingResults(domain, analysisId);
 
-        // Set an alarm for one minute to check the analysis results
-        browser.alarms.create(analysisId, { delayInMinutes: 1.0 });
-
         // Try to fetch the results with a timeout, this might fail
         await onAnalysisIdReceived(domain, analysisId);
     }, POST_URL_TIMEOUT_MS);

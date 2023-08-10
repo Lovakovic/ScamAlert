@@ -3,6 +3,7 @@ const PENDING_SCANS_KEY = 'pendingScans';
 const RETRY_COUNT_KEY = "retryCounts";
 const ANALYSIS_RESULTS_KEY = 'analysisResults';
 
+// Fetches the API key from storage
 export const getApiKey = async () => {
     return (await browser.storage.local.get('apiKey')).apiKey;
 }
