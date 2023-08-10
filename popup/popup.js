@@ -88,12 +88,12 @@ async function main() {
         return;
     }
 
-    let result = await browser.storage.local.get(domain);
+    let result = await browser.storage.local.get(`domains.${domain}`);
 
     if (Object.keys(result).length === 0) {
         setStatus('Loading...', '', blueColor);
     } else {
-        let stats = result[domain];
+        let stats = result[`domains.${domain}`];
 
         if (stats.nonHTTP) {
             setStatus('Site not scanned', 'This site won\'t be scanned as only domains using HTTP or HTTPS protocols are scanned.', blueColor);

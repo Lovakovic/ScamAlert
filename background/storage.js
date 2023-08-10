@@ -52,7 +52,7 @@ export const markDomainAsPending = async (domain, analysisId) => {
 // Function to remove domain from pending scans after results are received
 export const removeDomainFromPending = async (domain) => {
     const { pendingScans } = await browser.storage.local.get(PENDING_SCANS_KEY);
-    if (pendingScans && pendingScans[domain]) {
+    if (pendingScans?.[domain]) {
         delete pendingScans[domain];
         await browser.storage.local.set({ pendingScans });
     }
@@ -76,8 +76,9 @@ export const getDomainByAnalysisId = async (analysisId) => {
 
 // Function to clear alarm data after it's been used
 export const clearAlarmData = async (analysisId) => {
+    browser.alarms.clear(analysisId);
     const { alarmData: currentAlarms } = await browser.storage.local.get(ALARM_DATA_KEY);
-    if (currentAlarms && currentAlarms[analysisId]) {
+    if (currentAlarms?.[analysisId]) {
         delete currentAlarms[analysisId];
         await browser.storage.local.set({ [ALARM_DATA_KEY]: currentAlarms });
     }
