@@ -1,11 +1,11 @@
 import {
-    cleaAlarmDataFromStorage, getDomainData,
+    cleaAlarmDataFromStorage, getAllDomainAnalysisData, getDomainData,
     incrementScannedCounter,
-    markDomainAsNotified,
+    markDomainAsNotified, replaceDomainAnalysisData,
     setAlarmData,
     setDomainData
 } from "./storage.js";
-import {MALICIOUS_THRESHOLD, NOTIFICATION_EXPIRY_MS} from "../const.js";
+import {MALICIOUS_THRESHOLD, NOTIFICATION_EXPIRY_MS, SCAN_EXPIRY_DURATION_MIN} from "../const.js";
 
 export const extractDomainFromUrl = (url) => {
     const urlObject = new URL(url);
@@ -83,3 +83,22 @@ export const clearAlarmData = async (analysisId) => {
 
     await cleaAlarmDataFromStorage(analysisId)
 };
+
+export const cleanupOldData = async () => {
+    const currentData = await getAllDomainAnalysisData();
+    const now = Date.now();
+
+    for (const domain in currentData) {
+        if (currentData.hasOwnProperty(domain)) {
+            const timestamp = currentData[domain].timestamp;
+
+            // If the data is older than the expiry duration, delete it
+            if (now - timestamp > SCAN_EXPIRY_DURATION_MIN) {
+                delete currentData[domain];
+            }
+        }
+    }
+
+    // Update storage with cleaned data
+    await replaceDomainAnalysisData(currentData);
+}

@@ -1,3 +1,4 @@
+const API_KEY = 'apiKey';
 const ALARM_DATA_KEY = 'alarmData';
 const PENDING_SCANS_KEY = 'pendingScans';
 const RETRY_COUNT_KEY = "retryCounts";
@@ -5,7 +6,17 @@ const ANALYSIS_RESULTS_KEY = 'analysisResults';
 
 // Fetches the API key from storage
 export const getApiKey = async () => {
-    return (await browser.storage.local.get('apiKey')).apiKey;
+    return (await browser.storage.local.get(API_KEY)).apiKey;
+}
+
+// Retrieves scan results for all domains from storage
+export const getAllDomainAnalysisData = async () => {
+    return await browser.storage.local.get(ANALYSIS_RESULTS_KEY);
+}
+
+// Replaces the existing domain scan results with new data
+export const replaceDomainAnalysisData = async (newData) => {
+    await browser.storage.local.set({ [ANALYSIS_RESULTS_KEY]: newData[ANALYSIS_RESULTS_KEY] });
 }
 
 // Function to get domain data

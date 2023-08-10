@@ -44,3 +44,47 @@ TODO:
 - Check if sufficient permissions are granted before running the extension
 	Goal: Alert the user in popup if not sufficient permissions aren't granted to the extension
 	Action: Check if permissions are granted
+
+
+PROOPMT
+If I break the new function up like this, will it still work as expecterd?
+
+- storage.js:
+`
+// Retrieves scan results for all domains from storage
+export const getAllDomainAnalysisData = async () => {
+    return await browser.storage.local.get(ANALYSIS_RESULTS_KEY);
+}
+
+// Replaces the existing domain scan results with new data
+export const replaceDomainAnalysisData = async (newData) => {
+    await browser.storage.local.set({ [ANALYSIS_RESULTS_KEY]: newData[ANALYSIS_RESULTS_KEY] });
+}
+`
+
+- utils.js:
+`
+export const cleanupOldData = async () => {
+    const currentData = await getAllDomainAnalysisData();
+    const now = Date.now();
+
+    for (const domain in currentData) {
+        if (currentData.hasOwnProperty(domain)) {
+            const timestamp = currentData[domain].timestamp;
+
+            // If the data is older than the expiry duration, delete it
+            if (now - timestamp > SCAN_EXPIRY_DURATION_MIN) {
+                delete currentData[domain];
+            }
+        }
+    }
+
+    // Update storage with cleaned data
+    await replaceDomainAnalysisData(currentData);
+}
+`
+
+Data structure in local storage:
+`
+Key: Value
+analysisResults: {"www.reddit.com":{"harmle}}

@@ -105,4 +105,7 @@ export const refreshPopup = async () => {
     }
 }
 
-await refreshPopup();
+document.addEventListener("DOMContentLoaded", () => {
+    refreshPopup()
+        .catch(error => console.error(error));
+});
