@@ -1,5 +1,5 @@
 import {getApiKey, getDomainData, getMaliciousScannedCount, getTotalScannedCount} from "../background/storage.js";
-import {MALICIOUS_THRESHOLD} from "../const";
+import {MALICIOUS_THRESHOLD} from "../const.js";
 
 const greenColor = '#3e9444';
 const blueColor = '#3e6294';
