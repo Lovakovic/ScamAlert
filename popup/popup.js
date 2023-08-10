@@ -50,7 +50,7 @@ function drawChart(safe, malicious) {
     });
 }
 
-async function main() {
+export const refreshPopup = async () => {
     let apiKey = await getApiKey();
 
     let mainContent = document.getElementById('main-content');
@@ -105,10 +105,4 @@ async function main() {
     }
 }
 
-browser.runtime.onMessage.addListener((request) => {
-    if (request.command === 'refreshPopup') {
-        main();
-    }
-});
-
-main();
+await refreshPopup();

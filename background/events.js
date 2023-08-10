@@ -2,6 +2,7 @@
 import { handleTabUpdated, fetchResultsWithRetries} from "./domain.service.js";
 import { getDomainByAnalysisId } from "./storage.js";
 import { manageScanTimeoutsForDomain } from "./timeout.service.js";
+import {refreshPopup} from "../popup/popup.js";
 
 export const onTabUpdated = async (tabId, changeInfo, tab) => {
     await handleTabUpdated(tabId, changeInfo, tab);
@@ -18,6 +19,11 @@ export const onExtensionInstalled = async (details) => {
 // TODO: Implement a check whether the entered API key is valid
 // Close the setup on `close` button click
 export const onMessageReceived = async (request) => {
+    if(request.command === 'refreshPopup') {
+        await refreshPopup()
+        return;
+    }
+
     if (request.command === "closeSetupTab") {
         browser.tabs.query({active: true, currentWindow: true}).then(tabs => {
             browser.tabs.remove(tabs[0].id);
