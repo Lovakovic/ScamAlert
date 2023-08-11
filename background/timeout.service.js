@@ -1,5 +1,10 @@
+// Contains timeouts by tabId, used for cancellation
 const tabTimeouts = {};
+
+// Contains the count of tabs that are opened on each domain
 const domainTabsCount = {};
+
+// Contains domains which are waiting to be posted for analysis
 const domainsPendingImmediatePost = {};
 
 export const setTabTimeout = async (tabId, domain, timeoutCallback, delay) => {
@@ -29,6 +34,7 @@ export const manageScanTimeoutsForDomain = (tabId, currentDomain) => {
             delete domainTabsCount[previousDomain];
             if (tabTimeouts[tabId]?.timeoutId) {
                 clearTimeout(tabTimeouts[tabId].timeoutId);
+                delete domainsPendingImmediatePost[previousDomain];
                 delete tabTimeouts[tabId];
             }
         }
