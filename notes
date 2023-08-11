@@ -19,15 +19,9 @@ The initial setup process guides the user through extension setup and here is ho
 `
 
 TODO:
-- !URGENT! - Investigate why does the extension cause a huge memory request which crashes Firefox
-	- Use memory profiling in DevTools to find out when and how does the issue happen
-	- Try disabling other extensions
-	- Comment out parts of the code for chart drawing and see if issue persists
-	- Check if there are any rapid redraws or updates which might be causing the graphics errors
-
 - Rate Limit Awareness:
-    Goal: Prevent reaching the API call limits set by VirusTotal.
-    Action: Implement logic to track the number of API calls made within a specific timeframe (minute, day, month). If the extension is nearing the limit, it should temporarily hold off on making new requests until it's safe to resume.
+	Goal: Prevent reaching the API call limits set by VirusTotal.
+	Action: Implement logic to track the number of API calls made within a specific timeframe (minute, day, month). If the extension is nearing the limit, it should temporarily hold off on making new requests until it's safe to resume. Also keep track and display the quota usage in popup.
 
 - Implement i18n internationalization of the extension
     Goal: Translate the entire extension to Croatian and English
@@ -45,46 +39,10 @@ TODO:
 	Goal: Alert the user in popup if not sufficient permissions aren't granted to the extension
 	Action: Check if permissions are granted
 
+- Allow the user to turn off malicious notifications for a certain domain
+	Goal: Allow the user to turn off re-notification about malicious domain
+	Action: Implement a checkbox on alert or in popup, add property in analysis storage which will be checked before re-notifying the user
 
-PROOPMT
-If I break the new function up like this, will it still work as expecterd?
-
-- storage.js:
-`
-// Retrieves scan results for all domains from storage
-export const getAllDomainAnalysisData = async () => {
-    return await browser.storage.local.get(ANALYSIS_RESULTS_KEY);
-}
-
-// Replaces the existing domain scan results with new data
-export const replaceDomainAnalysisData = async (newData) => {
-    await browser.storage.local.set({ [ANALYSIS_RESULTS_KEY]: newData[ANALYSIS_RESULTS_KEY] });
-}
-`
-
-- utils.js:
-`
-export const cleanupOldData = async () => {
-    const currentData = await getAllDomainAnalysisData();
-    const now = Date.now();
-
-    for (const domain in currentData) {
-        if (currentData.hasOwnProperty(domain)) {
-            const timestamp = currentData[domain].timestamp;
-
-            // If the data is older than the expiry duration, delete it
-            if (now - timestamp > SCAN_EXPIRY_DURATION_MIN) {
-                delete currentData[domain];
-            }
-        }
-    }
-
-    // Update storage with cleaned data
-    await replaceDomainAnalysisData(currentData);
-}
-`
-
-Data structure in local storage:
-`
-Key: Value
-analysisResults: {"www.reddit.com":{"harmle}}
+- Use Indexed DB instead of ExtensionStorage for storing analysis results
+	Goal: Improve performance of data fetching and saving by using Indexed DB storage.
+	Action: Implement DB setup and refactor existing analysis result related methods to use Indexed DB.
