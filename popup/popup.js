@@ -1,5 +1,6 @@
 import {getApiKey, getDomainData, getMaliciousScannedCount, getTotalScannedCount} from "../background/storage.js";
 import {MALICIOUS_THRESHOLD} from "../const.js";
+import {getQuotaSummary} from "../background/api.js";
 
 const greenColor = '#3e9444';
 const blueColor = '#3e6294';
@@ -50,6 +51,10 @@ export const refreshPopup = async () => {
 
     setLegendColors();
     drawChart(safe, malicious);
+    getQuotaSummary()
+        .then(data => {
+            updateQuotaBars(data);
+        });
 
     // If no API key, show setup screen
     if (!apiKey) {
@@ -100,3 +105,22 @@ browser.runtime.onMessage.addListener(async (message) => {
         await refreshPopup();
     }
 });
+
+function updateQuotaBars(data) {
+    let dailyUsed = data.api_requests_daily.used;
+    let dailyAllowed = data.api_requests_daily.allowed;
+    let dailyPercent = (dailyUsed / dailyAllowed) * 100;
+
+    let hourlyUsed = data.api_requests_hourly.used;
+    let hourlyAllowed = data.api_requests_hourly.allowed;
+    let hourlyPercent = (hourlyUsed / hourlyAllowed) * 100;
+
+    setProgressValue('dailyQuota', dailyPercent);
+    setProgressValue('hourlyQuota', hourlyPercent);
+}
+
+function setProgressValue(elementId, value) {
+    let progressBar = document.getElementById(elementId).querySelector('.fill-bar');
+    progressBar.style.backgroundColor = getComputedStyle(document.getElementById('main-content')).backgroundColor;
+    progressBar.style.width = value + "%";
+}

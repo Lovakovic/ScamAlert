@@ -10,6 +10,21 @@
     <h1 id="status"></h1>
     <p id="info"></p>
 </div>
+<div id="quota-bars">
+    <div class="quota-wrapper">
+        <span class="quota-description subtle-text">Daily quota usage</span>
+        <div class="linear-progress" id="dailyQuota">
+            <div class="fill-bar"></div>
+        </div>
+    </div>
+
+    <div class="quota-wrapper">
+        <span class="quota-description subtle-text">Hourly quota usage</span>
+        <div class="linear-progress" id="hourlyQuota">
+            <div class="fill-bar"></div>
+        </div>
+    </div>
+</div>
 <div id="setup-content" class="d-none">
     <h2>Setup Needed</h2>
     <p>No API Key found. Please enter your VirusTotal API Key in the setup page.</p>
