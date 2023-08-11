@@ -2,13 +2,18 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="popup.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
     <title>URL scanner</title>
 </head>
 <body>
 <div id="main-content">
     <h1 id="status"></h1>
     <p id="info"></p>
+    <div id="mute-wrapper" class="d-none subtle-text">
+        <hr class="grey-border">
+        <input type="checkbox" id="mute-checkbox">
+        <label for="mute-checkbox" class="white-text">Mute future warnings for this domain</label>
+    </div>
 </div>
 <div id="quota-bars">
     <div class="quota-wrapper">

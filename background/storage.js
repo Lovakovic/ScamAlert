@@ -37,10 +37,10 @@ export const setDomainData = async (domain, results) => {
 }
 
 // Function to mark a domain with last notified timestamp
-export const markDomainAsNotified = async (domain) => {
+export const markDomainAsNotified = async (domain, mute = false) => {
     const currentTime = Date.now();
     const domainData = await getDomainData(domain);
-    await setDomainData(domain, { ...domainData, lastNotified: currentTime });
+    await setDomainData(domain, { ...domainData, lastNotified: currentTime, muted: mute });
 }
 
 // Function to increase a counter (e.g., totalScanned, maliciousScanned)

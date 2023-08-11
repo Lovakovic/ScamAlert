@@ -1,10 +1,14 @@
 import {getApiKey, getDomainData, getMaliciousScannedCount, getTotalScannedCount} from "../background/storage.js";
 import {MALICIOUS_THRESHOLD} from "../const.js";
 import {getQuotaSummary} from "../background/api.js";
+import {isDomainMuted, updateMuteStatusForDomain} from "../background/utils.js";
 
 const greenColor = '#3e9444';
 const blueColor = '#3e6294';
 const redColor = '#9c1c1c';
+
+const muteWrapper = document.getElementById("mute-wrapper");
+const muteCheckbox = document.getElementById("mute-checkbox");
 
 function setStatus(message, info, color) {
     let mainContent = document.getElementById('main-content');
@@ -90,7 +94,10 @@ export const refreshPopup = async () => {
 
     if (domainData.malicious >= MALICIOUS_THRESHOLD) {
         setStatus('Warning!', `${domainData.malicious} engines flagged this site as malicious.`, redColor);
+        muteCheckbox.checked = !!(await isDomainMuted(domain));
+        muteWrapper.classList.remove('d-none');
     } else {
+        muteWrapper.classList.add('d-none');
         setStatus('Safe', 'This site is safe to visit.', greenColor);
     }
 }
@@ -124,3 +131,11 @@ function setProgressValue(elementId, value) {
     progressBar.style.backgroundColor = getComputedStyle(document.getElementById('main-content')).backgroundColor;
     progressBar.style.width = value + "%";
 }
+
+muteCheckbox.addEventListener("change",() => {
+    const tab = (browser.tabs.query({ active: true, currentWindow: true })).catch(error => console.log(error))[0];
+    const url = new URL(tab.url);
+    const domain = url.hostname;
+    updateMuteStatusForDomain(domain, muteCheckbox.checked).catch(error => console.log(error));
+    refreshPopup().catch(error => console.log(error));
+});

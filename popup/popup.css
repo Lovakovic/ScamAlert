@@ -10,6 +10,11 @@ body {
     color: white;
 }
 
+.grey-border {
+    border-color: lightgray;
+}
+
+
 .linear-chart {
     width: 100%;
     height: 20px;

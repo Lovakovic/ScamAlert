@@ -55,9 +55,9 @@ export const checkIfSavedDomainIsMalicious = async (domain) => {
 export const notifyAboutMaliciousDomain = async (domain, results) => {
     const currentTime = Date.now();
     const lastNotified = results?.lastNotified || 0;
+    const isMuted = results?.muted || false;
 
-    if (lastNotified === 0 || currentTime - lastNotified > NOTIFICATION_EXPIRY_MS) {
-        // Show warning for malicious site
+    if (!isMuted && (lastNotified === 0 || currentTime - lastNotified > NOTIFICATION_EXPIRY_MS)) {        // Show warning for malicious site
         browser.tabs.create({
             url: `warn/warning.html?domain=${domain}`,
             active: true
@@ -101,4 +101,13 @@ export const cleanupOldData = async () => {
 
     // Update storage with cleaned data
     await replaceDomainAnalysisData(data);
+}
+
+export const updateMuteStatusForDomain = async (domain, isMuted) => {
+    await markDomainAsNotified(domain, isMuted);
+}
+
+export const isDomainMuted = async (domain) => {
+    const domainData = await getDomainData(domain);
+    return domainData?.muted ?? false;
 }

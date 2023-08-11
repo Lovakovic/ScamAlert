@@ -19,10 +19,6 @@ The initial setup process guides the user through extension setup and here is ho
 `
 
 TODO:
-- Rate Limit Awareness:
-	Goal: Prevent reaching the API call limits set by VirusTotal.
-	Action: Implement logic to track the number of API calls made within a specific timeframe (minute, day, month). If the extension is nearing the limit, it should temporarily hold off on making new requests until it's safe to resume. Also keep track and display the quota usage in popup.
-
 - Implement i18n internationalization of the extension
     Goal: Translate the entire extension to Croatian and English
     Action: Use the Firefox i18n API to translate all of the text in extension to Croatian and English.
@@ -39,10 +35,10 @@ TODO:
 	Goal: Alert the user in popup if not sufficient permissions aren't granted to the extension
 	Action: Check if permissions are granted
 
-- Allow the user to turn off malicious notifications for a certain domain
-	Goal: Allow the user to turn off re-notification about malicious domain
-	Action: Implement a checkbox on alert or in popup, add property in analysis storage which will be checked before re-notifying the user
-
 - Use Indexed DB instead of ExtensionStorage for storing analysis results
 	Goal: Improve performance of data fetching and saving by using Indexed DB storage.
 	Action: Implement DB setup and refactor existing analysis result related methods to use Indexed DB.
+
+- Rate Limit Awareness:
+	Goal: Prevent reaching the API call limits set by VirusTotal.
+	Action: Implement logic to track the number of API calls made within a specific timeframe (minute, day, month). If the extension is nearing the limit, it should temporarily hold off on making new requests until it's safe to resume. Also keep track and display the quota usage in popup.
