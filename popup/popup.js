@@ -4,7 +4,6 @@ import {MALICIOUS_THRESHOLD} from "../const.js";
 const greenColor = '#3e9444';
 const blueColor = '#3e6294';
 const redColor = '#9c1c1c';
-let statsChart;
 
 function setStatus(message, info, color) {
     let mainContent = document.getElementById('main-content');
@@ -18,36 +17,21 @@ function setStatus(message, info, color) {
     infoElement.textContent = info;
 }
 
+function setLegendColors() {
+    let safeBox = document.querySelector('.legend-item.safe .color-box');
+    let maliciousBox = document.querySelector('.legend-item.malicious .color-box');
+
+    safeBox.style.background = greenColor;
+    maliciousBox.style.background = redColor;
+}
+
 function drawChart(safe, malicious) {
-    // Create chart
-    let ctx = document.getElementById('myChart').getContext('2d');
+    let total = safe + malicious;
+    let safePercent = (safe / total) * 100;
 
-    // Check if a chart instance already exists. If yes, destroy it.
-    if (statsChart) {
-        statsChart.destroy();
-    }
-
-    statsChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: ['Safe', 'Malicious'],
-            datasets: [{
-                data: [safe, malicious],
-                backgroundColor: [
-                    greenColor, // color for safe
-                    redColor    // color for malicious
-                ],
-                borderColor: [
-                    greenColor, // color for safe
-                    redColor    // color for malicious
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-        }
-    });
+    let chartElement = document.querySelector('.chart-bar');
+    chartElement.style.background = `linear-gradient(to right, ${greenColor} 0%, ${greenColor} ${safePercent}%, ${redColor} ${safePercent}%, ${redColor} 100%)`;
+    chartElement.style.width = '100%';
 }
 
 export const refreshPopup = async () => {
@@ -64,6 +48,7 @@ export const refreshPopup = async () => {
 
     document.getElementById('totalSites').textContent = "Total Sites Scanned: " + total;
 
+    setLegendColors();
     drawChart(safe, malicious);
 
     // If no API key, show setup screen

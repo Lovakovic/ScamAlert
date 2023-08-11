@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="popup.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" rel="stylesheet" type="text/css">
     <title>URL scanner</title>
 </head>
 <body>
@@ -18,9 +19,14 @@
 <div id="stats-content">
     <h2>Overall stats</h2>
     <p id="totalSites"></p>
-    <canvas id="myChart"></canvas>
+    <div id="myChart" class="linear-chart">
+        <div class="chart-bar"></div>
+    </div>
+    <div class="chart-legend">
+        <span class="legend-item safe"><span class="color-box"></span> Safe</span>
+        <span class="legend-item malicious"><span class="color-box"></span> Malicious</span>
+    </div>
 </div>
-<script src="../lib/chart.min.js"></script>
 <script type="module" src="popup.js"></script>
 </body>
 </html>
