@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => console.error(error));
 });
 
-browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+browser.runtime.onMessage.addListener(async (message) => {
     if (message.command === "refreshPopup") {
         await refreshPopup();
     }
