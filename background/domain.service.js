@@ -8,7 +8,7 @@ import {
 } from "./storage.js";
 import {POST_URL_TIMEOUT_MS, REPORT_FETCH_DELAY_MS, REPORT_FETCH_MAX_RETRIES} from "../const.js";
 import {
-    clearAlarmData,
+    clearAlarmForAnalysisRetrieval,
     createAlarmForAnalysisRetrieval,
     saveAndDisplayResults,
     extractDomainFromUrl, checkIfSavedDomainIsMalicious
@@ -79,7 +79,7 @@ export const fetchResultsWithRetries = async (analysisId, domain) => {
             } else {
                 console.error("Max retries reached for", domain);
                 await removeDomainFromPending(domain);
-                await clearAlarmData(analysisId);
+                await clearAlarmForAnalysisRetrieval(analysisId);
             }
         } else {
             console.error("Error fetching results: ", error);
@@ -96,7 +96,7 @@ export const fetchResults = async (analysisId, domain) => {
 
     // Cleanup
     await removeDomainFromPending(domain);
-    await clearAlarmData(analysisId);
+    await clearAlarmForAnalysisRetrieval(analysisId);
 };
 
 // Sets a timeout for analysis results retrieval, as well as an alarm which will wake the script up if it gets unmounted

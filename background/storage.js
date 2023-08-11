@@ -6,12 +6,13 @@ const ANALYSIS_RESULTS_KEY = 'analysisResults';
 
 // Fetches the API key from storage
 export const getApiKey = async () => {
-    return (await browser.storage.local.get(API_KEY)).apiKey;
+    return (await browser.storage.local.get(API_KEY))[API_KEY];
 }
 
 // Retrieves scan results for all domains from storage
 export const getAllDomainAnalysisData = async () => {
-    return await browser.storage.local.get(ANALYSIS_RESULTS_KEY);
+    const data = await browser.storage.local.get(ANALYSIS_RESULTS_KEY);
+    return data[ANALYSIS_RESULTS_KEY] || {};
 }
 
 // Replaces the existing domain scan results with new data
@@ -98,7 +99,7 @@ export const getDomainByAnalysisId = async (analysisId) => {
 };
 
 // Function to store alarm data for later retrieval
-export const setAlarmData = async (analysisId, domain) => {
+export const setAnalysisIdToStorage = async (analysisId, domain) => {
     const { alarmData: currentAlarms } = await browser.storage.local.get(ALARM_DATA_KEY);
     const updatedAlarms = {
         ...currentAlarms,
@@ -107,7 +108,7 @@ export const setAlarmData = async (analysisId, domain) => {
     await browser.storage.local.set({ [ALARM_DATA_KEY]: updatedAlarms });
 };
 
-export const cleaAlarmDataFromStorage = async (analysisId) => {
+export const cleaAnalysisIdFromStorage = async (analysisId) => {
     // Check and remove the alarm data from storage
     const { alarmData: currentAlarms } = await browser.storage.local.get(ALARM_DATA_KEY);
     if (currentAlarms?.[analysisId]) {

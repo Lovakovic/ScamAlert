@@ -1,8 +1,8 @@
 import {
-    cleaAlarmDataFromStorage, getAllDomainAnalysisData, getDomainData,
+    cleaAnalysisIdFromStorage, getAllDomainAnalysisData, getDomainData,
     incrementScannedCounter,
     markDomainAsNotified, replaceDomainAnalysisData,
-    setAlarmData,
+    setAnalysisIdToStorage,
     setDomainData
 } from "./storage.js";
 import {MALICIOUS_THRESHOLD, NOTIFICATION_EXPIRY_MS, SCAN_EXPIRY_DURATION_MIN} from "../const.js";
@@ -70,35 +70,35 @@ export const notifyAboutMaliciousDomain = async (domain, results) => {
 
 export const createAlarmForAnalysisRetrieval = async (analysisId, domain) => {
     // Set an alarm as a backup method to fetch results
-    await setAlarmData(analysisId, domain);
+    await setAnalysisIdToStorage(analysisId, domain);
     browser.alarms.create(analysisId, { delayInMinutes: 1.0 });
 }
 
 // Function to clear alarm data after it's been used
-export const clearAlarmData = async (analysisId) => {
+export const clearAlarmForAnalysisRetrieval = async (analysisId) => {
     const existingAlarm = await browser.alarms.get(analysisId);
     if (existingAlarm) {
         browser.alarms.clear(analysisId);
     }
 
-    await cleaAlarmDataFromStorage(analysisId)
+    await cleaAnalysisIdFromStorage(analysisId)
 };
 
 export const cleanupOldData = async () => {
-    const currentData = await getAllDomainAnalysisData();
+    const data = await getAllDomainAnalysisData();
     const now = Date.now();
 
-    for (const domain in currentData) {
-        if (currentData.hasOwnProperty(domain)) {
-            const timestamp = currentData[domain].timestamp;
+    for (const domain in data) {
+        if (data.hasOwnProperty(domain)) {
+            const timestamp = data[domain].timestamp;
 
             // If the data is older than the expiry duration, delete it
             if (now - timestamp > SCAN_EXPIRY_DURATION_MIN) {
-                delete currentData[domain];
+                delete data[domain];
             }
         }
     }
 
     // Update storage with cleaned data
-    await replaceDomainAnalysisData(currentData);
+    await replaceDomainAnalysisData(data);
 }

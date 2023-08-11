@@ -2,6 +2,7 @@ import {fetchResultsWithRetries, handleTabUpdated} from "./domain.service.js";
 import {getDomainByAnalysisId} from "./storage.js";
 import {manageScanTimeoutsForDomain} from "./timeout.service.js";
 import {cleanupOldData} from "./utils.js";
+import {CLEANUP_INTERVAL_MIN} from "../const.js";
 
 // Monitor tab updates to check when a new URL is loaded
 export const onTabUpdated = async (tabId, changeInfo, tab) => {
@@ -14,8 +15,8 @@ export const onExtensionInstalled = async (details) => {
         // Open the welcome setup page when the extension is installed
         browser.tabs.create({ url: '../setup/welcome.html' });
 
-        // TODO: create an alarm for cleanup here too
-        // browser.alarms.create("cleanupAlarm", { periodInMinutes: CLEANUP_INTERVAL });
+        // Recurring alarm which will trigger stale analysis data cleanup
+        browser.alarms.create('cleanupAlarm', { periodInMinutes: CLEANUP_INTERVAL_MIN })
     }
 }
 
@@ -30,7 +31,7 @@ export const onMessageReceived = async (request) => {
 
 // Fetches the analysis results for domain with an ID in alarm name
 export const onAlarmReceived = async (alarm) => {
-    if (alarm.name === "cleanupAlarm") {
+    if (alarm.name === 'cleanupAlarm') {
         await cleanupOldData();
         return;
     }
