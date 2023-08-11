@@ -15,12 +15,6 @@
       "96": "logo.png"
     }
   },
-  "web_accessible_resources": [
-    {
-      "resources": ["welcome.html", "permissions.html", "api-key.html", "all-set.html", "welcome.js", "permissions.js", "api-key.js", "all-set.js"],
-      "matches": ["<all_urls>"]
-    }
-  ],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
