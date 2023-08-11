@@ -32,23 +32,26 @@ export const handleTabUpdated = async (tabId, changeInfo, tab) => {
     }
 
     const domain = extractDomainFromUrl(url);
+
+    // This makes sure that refreshing tab or opening multiple tabs in same domain work as
+    // expected and send only one URL for a scan
     manageScanTimeoutsForDomain(tabId, domain);
 
     const isScanned = await hasDomainBeenScanned(domain);
     if (isScanned){
-        // Check if we need to re-notify the user
+        // Renotify the user in case the domain is malicious and re-notification period expired
         await checkIfSavedDomainIsMalicious(domain);
         return;
     }
 
-    // Check if the domain is in the immediate pending list
+    // This prevents setting the timeout twice for the same domain in case tab is refreshed
+    // before the first timeout for that domain had a chance to POST the URL
     if (isDomainPendingImmediatePost(domain)) return;
 
-    // Check if the domain already has a pending scan
+    // This prevents setting the timeout for a domain that's already been posted for a scan
     const isPendingScan = await isDomainPendingScanResults(domain);
     if (isPendingScan) return;
 
-    // Mark the domain as pending in the immediate list
     markDomainAsPendingImmediatePost(domain);
 
     // Delay the POST request to not spam the API
@@ -89,9 +92,8 @@ export const fetchResultsWithRetries = async (analysisId, domain) => {
 // Fetch results by analysis ID and perform necessary cleanup
 export const fetchResults = async (analysisId, domain) => {
     const data = await getAnalysisResults(analysisId);
-    if (!data) {
-        throw new Error("ResultsNotReady");
-    }
+    if (!data) return;
+
     await saveAndDisplayResults(data);
 
     // Cleanup

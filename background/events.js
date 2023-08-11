@@ -1,7 +1,6 @@
-import { handleTabUpdated, fetchResultsWithRetries} from "./domain.service.js";
-import { getDomainByAnalysisId } from "./storage.js";
-import { manageScanTimeoutsForDomain } from "./timeout.service.js";
-import {refreshPopup} from "../popup/popup.js";
+import {fetchResultsWithRetries, handleTabUpdated} from "./domain.service.js";
+import {getDomainByAnalysisId} from "./storage.js";
+import {manageScanTimeoutsForDomain} from "./timeout.service.js";
 import {cleanupOldData} from "./utils.js";
 
 // Monitor tab updates to check when a new URL is loaded
@@ -22,14 +21,10 @@ export const onExtensionInstalled = async (details) => {
 
 // TODO: Implement a check whether the entered API key is valid
 export const onMessageReceived = async (request) => {
-    if (request.command === "closeSetupTab") {
+    if (request.command === 'closeSetupTab') {
         browser.tabs.query({active: true, currentWindow: true}).then(tabs => {
             browser.tabs.remove(tabs[0].id);
         });
-    }
-
-    if(request.command === 'refreshPopup') {
-        await refreshPopup()
     }
 }
 
