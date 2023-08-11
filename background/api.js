@@ -1,53 +1,72 @@
 import {VT_API_URLS} from "../const.js";
+import {getApiKey} from "./storage.js";
 
 let apiKey = '';
 
+class APIKeyMissingError extends Error {}
+
 const ensureApiKey = async () => {
-    let result = await browser.storage.local.get('apiKey');
-    apiKey = result.apiKey || '';
+    let result = await getApiKey();
+    apiKey = result || '';
     if (!apiKey) {
-        throw new Error("API key is not available.");
+        throw new APIKeyMissingError("API key is not available.");
     }
 }
 
 export const postUrl = async (url) => {
-    await ensureApiKey();
+    try {
+        await ensureApiKey();
 
-    const encodedParams = new URLSearchParams();
-    encodedParams.set('url', url);
+        const encodedParams = new URLSearchParams();
+        encodedParams.set('url', url);
 
-    const response = await fetch(VT_API_URLS.POST_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'x-apikey': apiKey,
-            'accept': 'application/json'
-        },
-        body: encodedParams
-    });
+        const response = await fetch(VT_API_URLS.POST_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'x-apikey': apiKey,
+                'accept': 'application/json'
+            },
+            body: encodedParams
+        });
 
-    console.log('Analyzing', url)
-    const data = await response.json();
-    return data.data.id;
+        console.log('Analyzing', url)
+        const data = await response.json();
+        return data.data.id;
+    } catch (e) {
+        if(e instanceof APIKeyMissingError) {
+            console.error('URL couldn\'t be scanned because API key is not available.')
+            return null;
+        }
+        throw e;
+    }
 }
 
 export const getAnalysisResults = async (analysisId) => {
-    await ensureApiKey();
-    const url = VT_API_URLS.GET_ANALYSIS + analysisId;
-    let response = await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'x-apikey': apiKey
-        }
-    });
-    let data = await response.json();
+    try {
+        await ensureApiKey();
+        const url = VT_API_URLS.GET_ANALYSIS + analysisId;
+        let response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'x-apikey': apiKey
+            }
+        });
+        let data = await response.json();
 
-    if (data.data.attributes.status === "completed") {
-        return data;
-    } else {
-        console.log('Analysis results aren\'t ready.')
-        return null;
+        if (data.data.attributes.status === "completed") {
+            return data;
+        } else {
+            console.log('Analysis results aren\'t ready.')
+            return null;
+        }
+    } catch (e) {
+        if(e instanceof APIKeyMissingError) {
+            console.error('URL analysis couldn\'t be retrieved because API key is not available.')
+            return null;
+        }
+        throw e;
     }
 }
 
@@ -56,11 +75,11 @@ export const getAnalysisResults = async (analysisId) => {
  * @returns {Object} Quota details of interest.
  */
 export async function getQuotaSummary() {
-    await ensureApiKey();
-
-    const url = `${VT_API_URLS.GET_QUOTAS}${apiKey}/overall_quotas`;
-
     try {
+        await ensureApiKey();
+
+        const url = `${VT_API_URLS.GET_QUOTAS}${apiKey}/overall_quotas`;
+
         let response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -70,7 +89,8 @@ export async function getQuotaSummary() {
         });
 
         if (response.status !== 200) {
-            throw new Error(`API returned status: ${response.status}`);
+            console.error(`API returned status: ${response.status}`);
+            return null;
         }
 
         let data = await response.json();
@@ -92,7 +112,10 @@ export async function getQuotaSummary() {
 
         return summary;
     } catch (error) {
-        console.error('Error fetching quota:', error);
+        if(error instanceof APIKeyMissingError) {
+            console.error('API quota couldn\'t be retrieved because API key is not available.')
+            return null;
+        }
         throw error;
     }
 }

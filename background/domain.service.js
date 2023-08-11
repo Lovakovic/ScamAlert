@@ -24,12 +24,9 @@ export const handleTabUpdated = async (tabId, changeInfo, tab) => {
     // Ignore the tab if it's not in a complete state or doesn't have a URL
     if (changeInfo.status !== 'complete') return;
 
-    // Don't scan non-HTTP URL
+    // Don't scan non-HTTP URLs
     const url = new URL(tab.url);
-    if (!url.protocol.startsWith('http')) {
-        console.log(`Ignoring URL with non-HTTP protocol: ${url.href}`);
-        return;
-    }
+    if (!url.protocol.startsWith('http')) return;
 
     const domain = extractDomainFromUrl(url);
 
@@ -58,13 +55,14 @@ export const handleTabUpdated = async (tabId, changeInfo, tab) => {
     await setTabTimeout(tabId, domain, async () => {
         const analysisId = await postUrl(domain);
 
-        // Update the analysisId for the domain in the pending list
-        await markDomainAsPendingResults(domain, analysisId);
+        if (analysisId) {
+            // Update the analysisId for the domain in the pending list
+            await markDomainAsPendingResults(domain, analysisId);
 
-        // Try to fetch the results with a timeout, this might fail
-        await onAnalysisIdReceived(domain, analysisId);
+            // Try to fetch the results with a timeout, this might fail
+            await onAnalysisIdReceived(domain, analysisId);
+        }
     }, POST_URL_TIMEOUT_MS);
-
 }
 
 // Wrapper function for `fetchResults` which implements retry logic if results aren't ready
