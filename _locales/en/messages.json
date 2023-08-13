@@ -73,5 +73,110 @@
   },
   "understand_risk": {
     "message": "I understand the risk!"
+  },
+  "welcome_title": {
+    "message": "Welcome!"
+  },
+  "welcome_heading": {
+    "message": "Welcome to ScamAlert!"
+  },
+  "welcome_description": {
+    "message": "This is a simple helper extension that will scan the URLs you visit for any malicious content. It uses VirusTotal API to scan the domains and alerts you when you visit malicious domains."
+  },
+  "welcome_note": {
+    "message": "<b>Note:</b> While this extension uses the VirusTotal API, it is not in any way affiliated with VirusTotal."
+  },
+  "welcome_instruction": {
+    "message": "To begin, click the \"Next\" button below."
+  },
+  "next": {
+    "message": "Next"
+  },
+  "permissions_title": {
+    "message": "Extension permissions"
+  },
+  "permissions_heading": {
+    "message": "Permissions & Privacy"
+  },
+  "permissions_intro": {
+    "message": "This extension requires certain permissions to function properly. These are:"
+  },
+  "permission_active_tab": {
+    "message": "<b>Active Tab:</b> This allows the extension to interact with the current active tab and scan the URLs for potential threats."
+  },
+  "permission_web_request": {
+    "message": "<b>Web Request:</b> This permission lets the extension monitor web requests made by the browser, such as when you navigate to a new URL. This is crucial for determining when to scan a URL."
+  },
+  "permission_local_storage": {
+    "message": "<b>Local Storage Access:</b> This is used to store settings, the API key, and cache scan results for better performance."
+  },
+  "permission_unlimited_storage": {
+    "message": "<b>Unlimited Storage:</b> The extension can store an unlimited amount of data in the browser storage. This ensures that the cached scan results and settings aren't accidentally deleted by the browser when it's freeing up space."
+  },
+  "permission_alarms": {
+    "message": "<b>Alarms:</b> This allows the extension to manage and schedule certain tasks within the extension, like cleanup of old scan data or fetching of analysis results for domains."
+  },
+  "permission_host_permissions": {
+    "message": "<b>Host permissions:</b> This ensures the extension has the ability to scan and analyze content across all websites you visit."
+  },
+  "permissions_privacy_note": {
+    "message": "We only send URLs to the VirusTotal API for analysis, and do not share your data with anyone else. Your privacy is our utmost priority."
+  },
+  "title_why_api": {
+    "message": "Why Do You Need the VirusTotal API Key?"
+  },
+  "header_why_api": {
+    "message": "Why the API Key?"
+  },
+  "desc_why_api": {
+    "message": "To analyze the URLs and ensure your safety, our extension relies on the VirusTotal service..."
+  },
+  "steps_api_key": {
+    "message": "Steps to Get Your API Key"
+  },
+  "step1_api_key": {
+    "message": "Register for a free account on <a href='https://www.virustotal.com/gui/join-us' target='_blank'>VirusTotal</a>."
+  },
+  "step2_api_key_text": {
+    "message": "Once registered, go to your API key section or use the link"
+  },
+  "step2_api_key_link": {
+    "message": "https://www.virustotal.com/gui/user/USERNAME/apikey"
+  },
+  "step2_api_key_note": {
+    "message": "replacing USERNAME with your VirusTotal's account username."
+  },
+  "guide_image_api_key_access": {
+    "message": "This image guides you to access the API Key section of your VirusTotal account."
+  },
+  "step3_api_key_text": {
+    "message": "Click the `Copy API key` button to copy the API key to your clipboard."
+  },
+  "guide_image_copy_api_key": {
+    "message": "This image shows you where to click to copy the API key to your clipboard."
+  },
+  "title_api_key": {
+    "message": "Enter VirusTotal API key"
+  },
+  "header_api_key": {
+    "message": "Enter Your API Key"
+  },
+  "description_api_key": {
+    "message": "Now that you have your VirusTotal API key, please enter it below:"
+  },
+  "note_secure_api_key": {
+    "message": "Note: We do not share your API key with anyone. It is stored securely in your browser's local storage."
+  },
+  "button_save": {
+    "message": "Save"
+  },
+  "all_set": {
+    "message": "All set!"
+  },
+  "desc_all_set": {
+    "message": "Your setup is complete. You can now enjoy safe browsing with VirusTotal Scanner."
+  },
+  "button_close": {
+    "message": "Close"
   }
 }

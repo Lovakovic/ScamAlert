@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>All set!</title>
+    <title data-i18n="all_set">All set!</title>
     <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
     <div class="jumbotron mt-5">
-        <h1 class="display-4">All Set!</h1>
-        <p class="lead">Your setup is complete. You can now enjoy safe browsing with VirusTotal Scanner.</p>
+        <h1 class="display-4" data-i18n="all_set"></h1>
+        <p class="lead" data-i18n="desc_all_set"></p>
         <hr class="my-4">
-        <button id="close-button" class="btn btn-primary btn-lg">Close</button>
+        <button id="close-button" class="btn btn-primary btn-lg" data-i18n="button_close"></button>
     </div>
 </div>
-<script src="allSet.js"></script>
 </body>
+    <script src="allSet.js"></script>
+    <script type="module" src="../modules/translation.js"></script>
 </html>

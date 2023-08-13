@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Welcome!</title>
+    <title data-i18n="welcome_title"></title>
     <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
     <div class="jumbotron mt-5">
-        <h1 class="display-4">Welcome to ScamAlert!</h1>
-        <p class="lead">This is a simple helper extension that will scan the URLs you visit for any malicious content. It uses VirusTotal API to scan the domains and alerts you when you visit malicious domains.</p>
+        <h1 class="display-4" data-i18n="welcome_heading"></h1>
+        <p class="lead" data-i18n="welcome_description"></p>
         <hr class="my-4">
-        <div class="alert alert-info" role="alert">
-            <b>Note:</b> While this extension uses the VirusTotal API, it is not in any way affiliated with VirusTotal.
-        </div>
-        <p>To begin, click the "Next" button below.</p>
-        <a class="btn btn-primary btn-lg" href="permissions.html" role="button">Next</a>
+        <div class="alert alert-info" role="alert" data-i18n="welcome_note"></div>
+        <p data-i18n="welcome_instruction"></p>
+        <a class="btn btn-primary btn-lg" href="permissions.html" role="button" data-i18n="next"></a>
     </div>
 </div>
 </body>
+    <script type="module" src="../modules/translation.js"></script>
 </html>

@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Enter VirusTotal API key</title>
+    <title data-i18n="title_api_key"></title>
     <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
     <div class="jumbotron mt-5">
-        <h1 class="display-4">Enter Your API Key</h1>
-        <p class="lead">Now that you have your VirusTotal API key, please enter it below:</p>
-        <div class="alert alert-warning" role="alert">
-            Note: We do not share your API key with anyone. It is stored securely in your browser's local storage.
-        </div>
+        <h1 class="display-4" data-i18n="header_api_key"></h1>
+        <p class="lead" data-i18n="description_api_key"></p>
+        <div class="alert alert-warning" role="alert" data-i18n="note_secure_api_key"></div>
         <hr class="my-4">
         <div class="form-group">
             <input type="text" class="form-control" id="api-key" placeholder="Enter API Key">
         </div>
-        <button id="save-button" class="btn btn-primary btn-lg">Save</button>
+        <button id="save-button" class="btn btn-primary btn-lg" data-i18n="button_save"></button>
     </div>
 </div>
 <script src="apiKey.js"></script>
+<script type="module" src="../modules/translation.js"></script>
 </body>
 </html>

@@ -1,43 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Why Do You Need the VirusTotal API Key?</title>
+    <title data-i18n="title_why_api"></title>
     <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../lib/lightbox.min.css">
 </head>
 <body>
 <div class="container">
     <div class="jumbotron mt-5">
-        <h1 class="display-4">Why the API Key?</h1>
-        <p class="lead">To analyze the URLs and ensure your safety, our extension relies on the VirusTotal service. In order to use it, we need you to register for a free account with VirusTotal and provide the API key to the extension.</p>
+        <h1 class="display-4" data-i18n="header_why_api"></h1>
+        <p class="lead" data-i18n="desc_why_api"></p>
 
-        <h3 class="mt-4">Steps to Get Your API Key</h3>
+        <h3 class="mt-4" data-i18n="steps_api_key"></h3>
         <ol>
+            <li data-i18n="step1_api_key"></li>
             <li>
-                Register for a free account on <a href="https://www.virustotal.com/gui/join-us" target="_blank">VirusTotal</a>.
-            </li>
-            <li>
-                Once registered, go to your API key section or use the link <a href="https://www.virustotal.com/gui/user/USERNAME/apikey" target="_blank">https://www.virustotal.com/gui/user/USERNAME/apikey</a> replacing USERNAME with your VirusTotal's account username.
+                <span data-i18n="step2_api_key_text"></span>
+                <a href="https://www.virustotal.com/gui/user/USERNAME/apikey" target="_blank" data-i18n-html="step2_api_key_link"></a>
+                <span data-i18n="step2_api_key_note"></span>
                 <br>
                 <a href="my_profile.png" data-lightbox="image-1" data-title="Guide Image - Accessing API Key Section">
                     <img src="my_profile.png" alt="Guide Image - Accessing API Key Section" class="img-fluid mt-2">
                 </a>
-                <div class="mt-2">This image guides you to access the API Key section of your VirusTotal account.</div>
+                <div class="mt-2 mb-4" data-i18n="guide_image_api_key_access"></div>
             </li>
             <li>
-                Click the `Copy API key` button to copy the API key to your clipboard.
+                <span data-i18n="step3_api_key_text"></span>
                 <br>
                 <a href="copy_api_key.png" data-lightbox="image-2" data-title="Guide Image - Copying the API Key">
                     <img src="copy_api_key.png" alt="Guide Image - Copying the API Key" class="img-fluid mt-2">
                 </a>
-
-                <div class="mt-2">This image shows you where to click to copy the API key to your clipboard.</div>
+                <div class="mt-2 mb-4" data-i18n="guide_image_copy_api_key"></div>
             </li>
         </ol>
         <hr class="my-4">
-        <a class="btn btn-primary btn-lg" href="apiKey.html" role="button">Next</a>
+        <a class="btn btn-primary btn-lg" href="apiKey.html" role="button" data-i18n="next"></a>
     </div>
 </div>
-</body>
 <script src="../lib/lightbox-plus-jquery.min.js"></script>
+<script type="module" src="../modules/translation.js"></script>
+</body>
 </html>

@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Extension permissions</title>
+    <title data-i18n="permissions_title"></title>
     <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
     <div class="jumbotron mt-5">
-        <h1 class="display-4">Permissions & Privacy</h1>
-        <p class="lead">This extension requires certain permissions to function properly. These are:</p>
+        <h1 class="display-4" data-i18n="permissions_heading"></h1>
+        <p class="lead" data-i18n="permissions_intro"></p>
         <ul>
-            <li><b>Active Tab:</b> This allows the extension to interact with the current active tab and scan the URLs for potential threats.</li>
-            <li><b>Web Request:</b> This permission lets the extension monitor web requests made by the browser, such as when you navigate to a new URL. This is crucial for determining when to scan a URL.</li>
-            <li><b>Local Storage Access:</b> This is used to store settings, the API key, and cache scan results for better performance.</li>
-            <li><b>Unlimited Storage:</b> The extension can store an unlimited amount of data in the browser storage. This ensures that the cached scan results and settings aren't accidentally deleted by the browser when it's freeing up space.</li>
-            <li><b>Alarms:</b> This allows the extension to manage and schedule certain tasks within the extension, like cleanup of old scan data or fetching of analysis results for domains.</li>
-            <li><b>Host permissions:</b> This ensures the extension has the ability to scan and analyze content across all websites you visit.</li>
+            <li data-i18n="permission_active_tab"></li>
+            <li data-i18n="permission_web_request"></li>
+            <li data-i18n="permission_local_storage"></li>
+            <li data-i18n="permission_unlimited_storage"></li>
+            <li data-i18n="permission_alarms"></li>
+            <li data-i18n="permission_host_permissions"></li>
         </ul>
         <hr class="my-4">
-        <p>We only send URLs to the VirusTotal API for analysis, and do not share your data with anyone else. Your privacy is our utmost priority.</p>
-        <a class="btn btn-primary btn-lg" href="whyApi.html" role="button">Next</a>
+        <p data-i18n="permissions_privacy_note"></p>
+        <a class="btn btn-primary btn-lg" href="whyApi.html" role="button" data-i18n="next"></a>
     </div>
 </div>
 </body>
+    <script type="module" src="../modules/translation.js"></script>
 </html>
