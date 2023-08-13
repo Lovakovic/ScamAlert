@@ -119,3 +119,22 @@ export async function getQuotaSummary() {
         throw error;
     }
 }
+
+export const isValidApiKey =  async (inputApiKey) => {
+    try {
+        const url = `${VT_API_URLS.GET_QUOTAS}${inputApiKey}/overall_quotas`;
+
+        let response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'x-apikey': inputApiKey
+            }
+        });
+
+        return response.status === 200;  // Return true for 200 status, otherwise false.
+    } catch (error) {
+        console.error(`Error while validating API key: ${error.message}`);
+        return false;  // Return false in case of any error.
+    }
+}

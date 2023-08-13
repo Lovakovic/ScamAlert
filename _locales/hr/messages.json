@@ -167,6 +167,9 @@
   "note_secure_api_key": {
     "message": "Napomena: Ne dijelimo vaš API ključ ni s kim. Spremljen je sigurno u lokalnoj pohrani vašeg preglednika."
   },
+  "note_invalid_api_key": {
+    "message": "Neispravan API ključ. Molimo probajte ponovno."
+  },
   "button_save": {
     "message": "Spremi"
   },

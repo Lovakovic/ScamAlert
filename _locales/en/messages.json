@@ -167,6 +167,9 @@
   "note_secure_api_key": {
     "message": "Note: We do not share your API key with anyone. It is stored securely in your browser's local storage."
   },
+  "note_invalid_api_key": {
+    "message": "Invalid API key. Please check and try again."
+  },
   "button_save": {
     "message": "Save"
   },
