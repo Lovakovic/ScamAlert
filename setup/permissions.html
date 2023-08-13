@@ -10,33 +10,16 @@
         <h1 class="display-4">Permissions & Privacy</h1>
         <p class="lead">This extension requires certain permissions to function properly. These are:</p>
         <ul>
-            <li><b>Access to visited URLs:</b> To scan the URLs you visit for malicious content.</li>
-            <li><b>Web request monitoring:</b> To monitor your browsing activity safely and securely for potential threats.</li>
-            <li><b>Local storage access:</b> To store the API key and caching scan results for better performance.</li>
+            <li><b>Active Tab:</b> This allows the extension to interact with the current active tab and scan the URLs for potential threats.</li>
+            <li><b>Web Request:</b> This permission lets the extension monitor web requests made by the browser, such as when you navigate to a new URL. This is crucial for determining when to scan a URL.</li>
+            <li><b>Local Storage Access:</b> This is used to store settings, the API key, and cache scan results for better performance.</li>
+            <li><b>Unlimited Storage:</b> The extension can store an unlimited amount of data in the browser storage. This ensures that the cached scan results and settings aren't accidentally deleted by the browser when it's freeing up space.</li>
+            <li><b>Alarms:</b> This allows the extension to manage and schedule certain tasks within the extension, like cleanup of old scan data or fetching of analysis results for domains.</li>
+            <li><b>Host permissions:</b> This ensures the extension has the ability to scan and analyze content across all websites you visit.</li>
         </ul>
-        <div class="row">
-            <div class="col">
-                <figure>
-                    <img src="https://via.placeholder.com/150" class="img-fluid" alt="Right click on extension icon and choose 'Manage extension'">
-                    <figcaption class="text-center">Right click on extension icon and choose 'Manage extension'</figcaption>
-                </figure>
-            </div>
-            <div class="col">
-                <figure>
-                    <img src="https://via.placeholder.com/150" class="img-fluid" alt="Click the 'Permissions' tab in extension options">
-                    <figcaption class="text-center">Click the 'Permissions' tab in extension options</figcaption>
-                </figure>
-            </div>
-            <div class="col">
-                <figure>
-                    <img src="https://via.placeholder.com/150" class="img-fluid" alt="Enable 'Access your data for all websites' permission">
-                    <figcaption class="text-center">Enable 'Access your data for all websites' permission</figcaption>
-                </figure>
-            </div>
-        </div>
         <hr class="my-4">
         <p>We only send URLs to the VirusTotal API for analysis, and do not share your data with anyone else. Your privacy is our utmost priority.</p>
-        <a class="btn btn-primary btn-lg" href="apiKey.html" role="button">Next</a>
+        <a class="btn btn-primary btn-lg" href="whyApi.html" role="button">Next</a>
     </div>
 </div>
 </body>

@@ -3,8 +3,8 @@
   "name": "ScamAlert",
   "version": "1.0",
   "description": "Scans URLs using VirusTotal API",
-  "default_locale": "hr",
-  "permissions": ["activeTab", "webRequest", "webRequestBlocking", "storage", "unlimitedStorage", "scripting", "notifications", "alarms"],
+  "default_locale": "en",
+  "permissions": ["activeTab", "webRequest", "storage", "unlimitedStorage", "alarms"],
   "background": {
     "scripts": ["background/background.js"],
     "type": "module"
