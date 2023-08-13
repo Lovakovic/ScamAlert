@@ -39,6 +39,15 @@ function drawChart(safe, malicious) {
     chartElement.style.width = '100%';
 }
 
+function toggleQuotaBarsVisibility(show) {
+    const quotaBars = document.getElementById('quota-bars');
+    if (show) {
+        quotaBars.classList.remove('d-none');
+    } else {
+        quotaBars.classList.add('d-none');
+    }
+}
+
 export const refreshPopup = async () => {
     let apiKey = await getApiKey();
 
@@ -55,16 +64,20 @@ export const refreshPopup = async () => {
 
     setLegendColors();
     drawChart(safe, malicious);
-    getQuotaSummary()
-        .then(data => {
-            updateQuotaBars(data);
-        });
+    if (apiKey) {
+        getQuotaSummary()
+            .then(data => {
+                updateQuotaBars(data);
+            });
+    }
 
     // If no API key, show setup screen
     if (!apiKey) {
         setupContent.classList.remove("d-none");
         mainContent.classList.add("d-none");
         statsContent.classList.add("d-none");
+        toggleQuotaBarsVisibility(false);
+        translatePageContent()
         document.getElementById('setup-button').addEventListener('click', function() {
             browser.tabs.create({ url: "../setup/welcome.html" });
         });
