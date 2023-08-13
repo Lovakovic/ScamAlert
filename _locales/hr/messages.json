@@ -1,0 +1,56 @@
+{
+  "blank": {
+    "message": ""
+  },
+  "mute_warnings": {
+    "message": "Isključi buduća upozorenja za ovu domenu"
+  },
+  "daily_quota_usage": {
+    "message": "Dnevna kvota upotrebe"
+  },
+  "hourly_quota_usage": {
+    "message": "Satna kvota upotrebe"
+  },
+  "setup_needed": {
+    "message": "Potrebno podesiti postavke"
+  },
+  "no_api_key": {
+    "message": "API ključ nije pronađen. Molimo unesite svoj VirusTotal API ključ na stranici za postavke."
+  },
+  "go_to_setup": {
+    "message": "Idi na postavke"
+  },
+  "overall_stats": {
+    "message": "Ukupna statistika"
+  },
+  "safe": {
+    "message": "Sigurno"
+  },
+  "info_safe": {
+    "message": "Ova stranica je sigurna za posjetiti."
+  },
+  "malicious": {
+    "message": "Zlonamjerno"
+  },
+  "status_site_not_scanned": {
+    "message": "Stranica nije skenirana"
+  },
+  "info_no_active_tab": {
+    "message": "Greška: Nema aktivne kartice"
+  },
+  "info_non_http": {
+    "message": "Ova stranica neće biti skenirana jer se skeniraju samo domene koje koriste HTTP ili HTTPS protokol."
+  },
+  "status_loading": {
+    "message": "Učitavanje..."
+  },
+  "status_warning": {
+    "message": "Upozorenje!"
+  },
+  "info_warning": {
+    "message": "$1 skenera je označilo ovu stranicu kao zlonamjernu."
+  },
+  "total_sites_scanned": {
+    "message": "Ukupno skeniranih stranica: $1"
+  }
+}

@@ -1,7 +1,8 @@
-import {getApiKey, getDomainData, getMaliciousScannedCount, getTotalScannedCount} from "../background/storage.js";
+import {getApiKey, getDomainData, getMaliciousScannedCount, getTotalScannedCount} from "../modules/storage.js";
 import {MALICIOUS_THRESHOLD} from "../const.js";
-import {getQuotaSummary} from "../background/api.js";
-import {isDomainMuted, updateMuteStatusForDomain} from "../background/utils.js";
+import {getQuotaSummary} from "../modules/api.js";
+import {isDomainMuted, updateMuteStatusForDomain} from "../modules/utils.js";
+import {translatePageContent} from "../modules/translation.js";
 
 const greenColor = '#3e9444';
 const blueColor = '#3e6294';
@@ -10,16 +11,15 @@ const redColor = '#9c1c1c';
 const muteWrapper = document.getElementById("mute-wrapper");
 const muteCheckbox = document.getElementById("mute-checkbox");
 
-function setStatus(message, info, color) {
+function setStatus(messageKey, infoKey, color, ...placeholders) {
     let mainContent = document.getElementById('main-content');
     let statusElement = document.getElementById('status');
     let infoElement = document.getElementById('info');
-
     mainContent.style.background = color;
-    statusElement.classList.add('white-text');
-    infoElement.classList.add('white-text');
-    statusElement.textContent = message;
-    infoElement.textContent = info;
+
+    statusElement.textContent = browser.i18n.getMessage(messageKey);
+    infoElement.textContent = browser.i18n.getMessage(infoKey, ...placeholders);
+    translatePageContent()
 }
 
 function setLegendColors() {
@@ -51,7 +51,7 @@ export const refreshPopup = async () => {
     let malicious = await getMaliciousScannedCount();
     let safe = total - malicious;
 
-    document.getElementById('totalSites').textContent = "Total Sites Scanned: " + total;
+    document.getElementById('totalSites').textContent = browser.i18n.getMessage('total_sites_scanned', total);
 
     setLegendColors();
     drawChart(safe, malicious);
@@ -73,7 +73,7 @@ export const refreshPopup = async () => {
 
     let tab = (await browser.tabs.query({ active: true, currentWindow: true }))[0];
     if (!tab?.url) {
-        setStatus('Site not scanned', 'Error: No active tab');
+        setStatus('status_site_not_scanned', 'info_no_active_tab', blueColor);
         return;
     }
 
@@ -81,24 +81,24 @@ export const refreshPopup = async () => {
     let domain = url.hostname;
 
     if (!url.protocol.startsWith('http')) {
-        setStatus('Site not scanned', 'This site won\'t be scanned as only domains using HTTP or HTTPS protocols are scanned.', blueColor);
+        setStatus('status_site_not_scanned', 'info_non_http', blueColor);
         return;
     }
 
     let domainData = await getDomainData(domain);
 
     if (!domainData) {
-        setStatus('Loading...', '', blueColor);
+        setStatus('status_loading', 'blank', blueColor);
         return;
     }
 
     if (domainData.malicious >= MALICIOUS_THRESHOLD) {
-        setStatus('Warning!', `${domainData.malicious} engines flagged this site as malicious.`, redColor);
+        setStatus('status_warning', `info_warning`, redColor, domainData.malicious);
         muteCheckbox.checked = !!(await isDomainMuted(domain));
         muteWrapper.classList.remove('d-none');
     } else {
         muteWrapper.classList.add('d-none');
-        setStatus('Safe', 'This site is safe to visit.', greenColor);
+        setStatus('safe', 'info_safe', greenColor);
     }
 }
 

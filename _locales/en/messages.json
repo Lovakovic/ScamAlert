@@ -1,0 +1,56 @@
+{
+  "blank": {
+    "message": ""
+  },
+  "mute_warnings": {
+    "message": "Mute future warnings for this domain"
+  },
+  "daily_quota_usage": {
+    "message": "Daily quota usage"
+  },
+  "hourly_quota_usage": {
+    "message": "Hourly quota usage"
+  },
+  "setup_needed": {
+    "message": "Setup Needed"
+  },
+  "no_api_key": {
+    "message": "No API Key found. Please enter your VirusTotal API Key in the setup page."
+  },
+  "go_to_setup": {
+    "message": "Go to Setup"
+  },
+  "overall_stats": {
+    "message": "Overall stats"
+  },
+  "safe": {
+    "message": "Safe"
+  },
+  "info_safe": {
+    "message": "This site is safe to visit."
+  },
+  "malicious": {
+    "message": "Malicious"
+  },
+  "status_site_not_scanned": {
+    "message": "Site not scanned"
+  },
+  "info_no_active_tab": {
+    "message": "Error: No active tab"
+  },
+  "info_non_http": {
+    "message": "This site won't be scanned as only domains using HTTP or HTTPS protocols are scanned."
+  },
+  "status_loading": {
+    "message": "Loading..."
+  },
+  "status_warning": {
+    "message": "Warning!"
+  },
+  "info_warning": {
+    "message": "$1 engines flagged this site as malicious."
+  },
+  "total_sites_scanned": {
+    "message": "Total Sites Scanned: $1"
+  }
+}

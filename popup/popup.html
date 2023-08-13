@@ -3,49 +3,50 @@
 <head>
     <link rel="stylesheet" type="text/css" href="popup.css">
     <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
-    <title>URL scanner</title>
+    <title>ScamAlert URL scanner</title>
 </head>
 <body>
 <div id="main-content">
-    <h1 id="status"></h1>
-    <p id="info"></p>
+    <h1 id="status" class="white-text"></h1>
+    <p id="info" class="white-text"></p>
     <div id="mute-wrapper" class="d-none subtle-text">
         <hr class="grey-border">
         <input type="checkbox" id="mute-checkbox">
-        <label for="mute-checkbox" class="white-text">Mute future warnings for this domain</label>
+        <label for="mute-checkbox" class="white-text" data-i18n-content="mute_warnings"></label>
     </div>
 </div>
 <div id="quota-bars">
     <div class="quota-wrapper">
-        <span class="quota-description subtle-text">Daily quota usage</span>
+        <span class="quota-description subtle-text" data-i18n-content="daily_quota_usage"></span>
         <div class="linear-progress" id="dailyQuota">
             <div class="fill-bar"></div>
         </div>
     </div>
 
     <div class="quota-wrapper">
-        <span class="quota-description subtle-text">Hourly quota usage</span>
+        <span class="quota-description subtle-text" data-i18n-content="hourly_quota_usage"></span>
         <div class="linear-progress" id="hourlyQuota">
             <div class="fill-bar"></div>
         </div>
     </div>
 </div>
 <div id="setup-content" class="d-none">
-    <h2>Setup Needed</h2>
-    <p>No API Key found. Please enter your VirusTotal API Key in the setup page.</p>
-    <button id="setup-button" class="btn btn-primary">Go to Setup</button>
+    <h2 data-i18n-content="setup_needed"></h2>
+    <p data-i18n-content="no_api_key"></p>
+    <button id="setup-button" class="btn btn-primary" data-i18n-content="go_to_setup"></button>
 </div>
 <div id="stats-content">
-    <h2>Overall stats</h2>
+    <h2 data-i18n-content="overall_stats"></h2>
     <p id="totalSites"></p>
     <div id="myChart" class="linear-chart">
         <div class="chart-bar"></div>
     </div>
     <div class="chart-legend">
-        <span class="legend-item safe"><span class="color-box"></span> Safe</span>
-        <span class="legend-item malicious"><span class="color-box"></span> Malicious</span>
+        <span class="legend-item safe"><span class="color-box"></span> <span data-i18n-content="safe"></span></span>
+        <span class="legend-item malicious"><span class="color-box"></span> <span data-i18n-content="malicious"></span></span>
     </div>
 </div>
 <script type="module" src="popup.js"></script>
+<script type="module" src="../modules/translation.js"></script>
 </body>
 </html>
