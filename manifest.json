@@ -17,6 +17,6 @@
     }
   },
   "host_permissions": [
-    "https://www.virustotal.com/api/v3/*"
+    "<all_urls>"
   ]
 }
