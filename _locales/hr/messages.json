@@ -52,5 +52,26 @@
   },
   "total_sites_scanned": {
     "message": "Ukupno skeniranih stranica: $1"
+  },
+  "dangerous_site_detected": {
+    "message": "Otkrivena opasna stranica!"
+  },
+  "lead_warning": {
+    "message": "Stranica $1 je označena kao potencijalno opasna od strane više izvora. Ne otkrivajte osobne podatke, podatke kreditnih kartica ili bilo koje druge osjetljive informacije. Postupajte oprezno."
+  },
+  "info_about_malicious": {
+    "message": "Od $1 skenera, $2 smatraju ovu stranicu zlonamjernom."
+  },
+  "note_about_malicious": {
+    "message": "Napomena: Oznaka \"zlonamjerno\" je najviša razina sigurnosti da bi stranica mogla biti štetna. Čak i jedan skener koji označava stranicu kao zlonamjernu trebao bi biti dovoljan za povećavanje mjera opreza. Uvijek budite oprezni i prioritetno razmišljajte o svojoj online sigurnosti."
+  },
+  "more_options": {
+    "message": "Više opcija"
+  },
+  "mute_domain": {
+    "message": "Zanemari buduća upozorenja za $1"
+  },
+  "understand_risk": {
+    "message": "Razumijem rizik!"
   }
 }

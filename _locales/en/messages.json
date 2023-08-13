@@ -52,5 +52,26 @@
   },
   "total_sites_scanned": {
     "message": "Total Sites Scanned: $1"
+  },
+  "dangerous_site_detected": {
+    "message": "Dangerous Site Detected!"
+  },
+  "lead_warning": {
+    "message": "The site $1 has been flagged as potentially dangerous by multiple sources. Do not reveal any personal information, credit card info, or any other sensitive information. Proceed with caution."
+  },
+  "info_about_malicious": {
+    "message": "Out of $1 engines, $2 have deemed this site to be malicious."
+  },
+  "note_about_malicious": {
+    "message": "Note: The label \"malicious\" is the highest level of certainty that a site might be harmful. Even one engine marking a site as malicious should be enough to raise concerns. Always be cautious and prioritize your online safety."
+  },
+  "more_options": {
+    "message": "More options"
+  },
+  "mute_domain": {
+    "message": "Ignore future warnings for $1"
+  },
+  "understand_risk": {
+    "message": "I understand the risk!"
   }
 }
