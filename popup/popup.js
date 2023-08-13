@@ -132,10 +132,20 @@ function setProgressValue(elementId, value) {
     progressBar.style.width = value + "%";
 }
 
-muteCheckbox.addEventListener("change",() => {
-    const tab = (browser.tabs.query({ active: true, currentWindow: true })).catch(error => console.log(error))[0];
-    const url = new URL(tab.url);
-    const domain = url.hostname;
-    updateMuteStatusForDomain(domain, muteCheckbox.checked).catch(error => console.log(error));
-    refreshPopup().catch(error => console.log(error));
+muteCheckbox.addEventListener("change", () => {
+    browser.tabs.query({ active: true, currentWindow: true })
+        .then(tabs => {
+            const tab = tabs[0];
+            if (!tab) {
+                console.log("No active tab found");
+                return;
+            }
+            const url = new URL(tab.url);
+            const domain = url.hostname;
+            updateMuteStatusForDomain(domain, muteCheckbox.checked).catch(error => console.log(error));
+            refreshPopup().catch(error => console.log(error));
+        })
+        .catch(error => {
+            console.log(error);
+        });
 });

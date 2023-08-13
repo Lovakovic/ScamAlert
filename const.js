@@ -7,7 +7,7 @@ export const REPORT_FETCH_MAX_RETRIES = 3;
 export const SCAN_EXPIRY_DURATION_MIN = 30 * 24 * 60;  // 30 days
 export const CLEANUP_INTERVAL_MIN = 24 * 60; // Once a day
 
-export const NOTIFICATION_EXPIRY_MS = 1 * 60 *  1000; // 15 minutes
+export const NOTIFICATION_EXPIRY_MS = 15 * 60 *  1000; // 15 minutes
 
 export const MALICIOUS_THRESHOLD = 2;
 
