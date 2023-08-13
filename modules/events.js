@@ -1,6 +1,6 @@
-import {fetchResultsWithRetries, handleTabUpdated} from "./domain.service.js";
+import {fetchResultsWithRetries, handleTabUpdated} from "../background/domain.service.js";
 import {getDomainByAnalysisId} from "./storage.js";
-import {manageScanTimeoutsForDomain} from "./timeout.service.js";
+import {manageScanTimeoutsForDomain} from "../background/timeout.service.js";
 import {cleanupOldData} from "./utils.js";
 import {CLEANUP_INTERVAL_MIN} from "../const.js";
 

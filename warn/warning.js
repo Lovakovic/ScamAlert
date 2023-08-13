@@ -1,4 +1,4 @@
-import {getDomainData, markDomainAsNotified} from "../background/storage.js";
+import {getDomainData, markDomainAsNotified} from "../modules/storage.js";
 
 async function init() {
     let domain = new URLSearchParams(window.location.search).get('domain');

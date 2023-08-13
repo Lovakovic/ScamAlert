@@ -1,18 +1,18 @@
-import {getAnalysisResults, postUrl} from './api.js';
+import {getAnalysisResults, postUrl} from '../modules/api.js';
 import {
     getRetryCount,
     hasDomainBeenScanned, increaseRetryCount,
     isDomainPendingScanResults,
     markDomainAsPendingResults,
     removeDomainFromPending
-} from "./storage.js";
+} from "../modules/storage.js";
 import {POST_URL_TIMEOUT_MS, REPORT_FETCH_DELAY_MS, REPORT_FETCH_MAX_RETRIES} from "../const.js";
 import {
     clearAlarmForAnalysisRetrieval,
     createAlarmForAnalysisRetrieval,
     saveAndDisplayResults,
     extractDomainFromUrl, checkIfSavedDomainIsMalicious
-} from "./utils.js";
+} from "../modules/utils.js";
 import {
     manageScanTimeoutsForDomain,
     isDomainPendingImmediatePost,
