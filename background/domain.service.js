@@ -11,7 +11,7 @@ import {
     clearAlarmForAnalysisRetrieval,
     createAlarmForAnalysisRetrieval,
     saveAndDisplayResults,
-    extractDomainFromUrl, checkIfSavedDomainIsMalicious
+    extractDomainFromUrl, checkIfSavedDomainIsMalicious, refreshPopupIfOpen
 } from "../modules/utils.js";
 import {
     manageScanTimeoutsForDomain,
@@ -23,6 +23,9 @@ import {
 export const handleTabUpdated = async (tabId, changeInfo, tab) => {
     // Ignore the tab if it's not in a complete state or doesn't have a URL
     if (changeInfo.status !== 'complete') return;
+
+    // Firstly refresh to represent current state of the site
+    await refreshPopupIfOpen()
 
     // Don't scan non-HTTP URLs
     const url = new URL(tab.url);

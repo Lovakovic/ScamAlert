@@ -20,7 +20,6 @@ export const onExtensionInstalled = async (details) => {
     }
 }
 
-// TODO: Implement a check whether the entered API key is valid
 export const onMessageReceived = async (request) => {
     if (request.command === 'closeSetupTab') {
         browser.tabs.query({active: true, currentWindow: true}).then(tabs => {

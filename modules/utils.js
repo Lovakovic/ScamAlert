@@ -34,9 +34,7 @@ export const saveAndDisplayResults = async (data) => {
     }
 
     // Notify the popup to refresh if it is open
-    if (browser.extension.getViews({ type: 'popup' }).length > 0) {
-        browser.runtime.sendMessage({ command: 'refreshPopup' });
-    }
+    await refreshPopupIfOpen()
 }
 
 // Checks if notification timeout has expired for a domain and triggers a re-notification in case it did
@@ -110,4 +108,10 @@ export const updateMuteStatusForDomain = async (domain, isMuted) => {
 export const isDomainMuted = async (domain) => {
     const domainData = await getDomainData(domain);
     return domainData?.muted ?? false;
+}
+
+export const refreshPopupIfOpen = async () => {
+    if (browser.extension.getViews({ type: 'popup' }).length > 0) {
+        browser.runtime.sendMessage({ command: 'refreshPopup' });
+    }
 }
