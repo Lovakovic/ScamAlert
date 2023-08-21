@@ -15,7 +15,7 @@
     "message": "Potrebno podesiti postavke"
   },
   "no_api_key": {
-    "message": "API ključ nije pronađen. Molimo unesite svoj VirusTotal API ključ na stranici za postavke."
+    "message": "API ključ nije pronađen. Molimo unesite svoj VirusTotal API ključ na stranicama za postavljanje."
   },
   "go_to_setup": {
     "message": "Idi na postavke"

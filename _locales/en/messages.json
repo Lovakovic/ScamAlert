@@ -120,7 +120,7 @@
     "message": "<b>Host permissions:</b> This ensures the extension has the ability to scan and analyze content across all websites you visit."
   },
   "permissions_privacy_note": {
-    "message": "We only send URLs to the VirusTotal API for analysis, and do not share your data with anyone else. Your privacy is our utmost priority."
+    "message": "We only send the domain part of the URL to the VirusTotal API for analysis, and do not share your data with anyone else. Your privacy is our utmost priority."
   },
   "title_why_api": {
     "message": "Why Do You Need the VirusTotal API Key?"
