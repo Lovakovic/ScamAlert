@@ -31,6 +31,19 @@ async function init() {
     });
 }
 
+function toggleCollapse(elementId) {
+    const element = document.getElementById(elementId);
+    if (element.classList.contains('collapsed') && !element.classList.contains('shown')) {
+        element.classList.add('shown');
+    } else {
+        element.classList.remove('shown');
+    }
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
     init().catch(err => console.error(err));
+
+    const moreOptionsButton = document.getElementById("moreOptionsButton");
+    moreOptionsButton.addEventListener('click', () => toggleCollapse("moreOptions"));
 });
