@@ -132,9 +132,9 @@ export const isValidApiKey =  async (inputApiKey) => {
             }
         });
 
-        return response.status === 200;  // Return true for 200 status, otherwise false.
+        return response.status === 200;
     } catch (error) {
         console.error(`Error while validating API key: ${error.message}`);
-        return false;  // Return false in case of any error.
+        return false;
     }
 }
