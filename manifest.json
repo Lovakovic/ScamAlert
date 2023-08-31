@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "ScamAlert",
   "version": "1.0",
-  "description": "Scans URLs using VirusTotal API",
+  "description": "Scans URLs using VirusTotal API and alerts you of malicious websites.",
   "default_locale": "en",
   "permissions": ["activeTab", "webRequest", "storage", "unlimitedStorage", "alarms"],
   "background": {
@@ -18,5 +18,11 @@
   },
   "host_permissions": [
     "<all_urls>"
-  ]
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{e120d6a0-4fa1-4778-aeaf-d0ecf9e946be}",
+      "strict_min_version": "115.0"
+    }
+  }
 }
