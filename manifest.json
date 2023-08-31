@@ -12,8 +12,8 @@
   "action": {
     "default_popup": "popup/popup.html",
     "default_icon": {
-      "48": "logo.png",
-      "96": "logo.png"
+      "48": "icons/logo.png",
+      "96": "icons/logo.png"
     }
   },
   "host_permissions": [
