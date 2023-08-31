@@ -3,7 +3,14 @@ import {getApiKey} from "./storage.js";
 
 let apiKey = '';
 
-class APIKeyMissingError extends Error {}
+export class APIKeyMissingError extends Error {}
+export class InvalidResponseError extends Error {}
+export class ResultsNotReadyError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "ResultsNotReadyError";
+    }
+}
 
 const ensureApiKey = async () => {
     let result = await getApiKey();
@@ -14,59 +21,52 @@ const ensureApiKey = async () => {
 }
 
 export const postUrl = async (url) => {
-    try {
-        await ensureApiKey();
+    await ensureApiKey();
 
-        const encodedParams = new URLSearchParams();
-        encodedParams.set('url', url);
+    const encodedParams = new URLSearchParams();
+    encodedParams.set('url', url);
 
-        const response = await fetch(VT_API_URLS.POST_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'x-apikey': apiKey,
-                'accept': 'application/json'
-            },
-            body: encodedParams
-        });
+    const response = await fetch(VT_API_URLS.POST_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'x-apikey': apiKey,
+            'accept': 'application/json'
+        },
+        body: encodedParams
+    });
 
-        console.log('Analyzing', url)
-        const data = await response.json();
-        return data.data.id;
-    } catch (e) {
-        if(e instanceof APIKeyMissingError) {
-            console.error('URL couldn\'t be scanned because API key is not available.')
-            return null;
-        }
-        throw e;
+    if (response.status !== 200) {
+        throw new InvalidResponseError('Invalid response received.');
     }
+
+    console.log('Analyzing', url)
+    const data = await response.json();
+    return data.data.id;
 }
 
-export const getAnalysisResults = async (analysisId) => {
-    try {
-        await ensureApiKey();
-        const url = VT_API_URLS.GET_ANALYSIS + analysisId;
-        let response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'x-apikey': apiKey
-            }
-        });
-        let data = await response.json();
 
-        if (data.data.attributes.status === "completed") {
-            return data;
-        } else {
-            console.log('Analysis results aren\'t ready.')
-            return null;
+export const getAnalysisResults = async (analysisId) => {
+    await ensureApiKey();
+    const url = VT_API_URLS.GET_ANALYSIS + analysisId;
+    let response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'x-apikey': apiKey
         }
-    } catch (e) {
-        if(e instanceof APIKeyMissingError) {
-            console.error('URL analysis couldn\'t be retrieved because API key is not available.')
-            return null;
-        }
-        throw e;
+    });
+
+    if(response.status !== 200) {
+        throw new InvalidResponseError(`Received a non-200 status code: ${response.status}`);
+    }
+
+    let data = await response.json();
+
+    if (data.data.attributes.status === "completed") {
+        return data;
+    } else {
+        throw new ResultsNotReadyError('Analysis results aren\'t ready.');
     }
 }
 

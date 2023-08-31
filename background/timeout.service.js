@@ -48,3 +48,7 @@ export const isDomainPendingImmediatePost = (domain) => {
 export const markDomainAsPendingImmediatePost = (domain) => {
     domainsPendingImmediatePost[domain] = (domainsPendingImmediatePost[domain] || 0) + 1;
 }
+
+export const removeDomainFromPendingImmediatePOst = (domain) => {
+    domainsPendingImmediatePost[domain] = undefined;
+}

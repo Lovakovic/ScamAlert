@@ -1,22 +1,26 @@
-import {getAnalysisResults, postUrl} from '../modules/api.js';
+import {getAnalysisResults, postUrl, ResultsNotReadyError} from '../modules/api.js';
 import {
     getRetryCount,
-    hasDomainBeenScanned, increaseRetryCount,
+    hasDomainBeenScanned,
+    increaseRetryCount,
     isDomainPendingScanResults,
     markDomainAsPendingResults,
     removeDomainFromPending
 } from "../modules/storage.js";
 import {POST_URL_TIMEOUT_MS, REPORT_FETCH_DELAY_MS, REPORT_FETCH_MAX_RETRIES} from "../const.js";
 import {
+    checkIfSavedDomainIsMalicious,
     clearAlarmForAnalysisRetrieval,
     createAlarmForAnalysisRetrieval,
-    saveAndDisplayResults,
-    extractDomainFromUrl, checkIfSavedDomainIsMalicious, refreshPopupIfOpen
+    extractDomainFromUrl,
+    refreshPopupIfOpen,
+    saveAndDisplayResults
 } from "../modules/utils.js";
 import {
-    manageScanTimeoutsForDomain,
     isDomainPendingImmediatePost,
+    manageScanTimeoutsForDomain,
     markDomainAsPendingImmediatePost,
+    removeDomainFromPendingImmediatePOst,
     setTabTimeout
 } from "./timeout.service.js";
 
@@ -53,14 +57,18 @@ export const handleTabUpdated = async (tabId, changeInfo, tab) => {
 
     // Delay the POST request to not spam the API
     await setTabTimeout(tabId, domain, async () => {
-        const analysisId = await postUrl(domain);
+        try {
+            const analysisId = await postUrl(domain);
 
-        if (analysisId) {
             // Update the analysisId for the domain in the pending list
             await markDomainAsPendingResults(domain, analysisId);
 
-            // Try to fetch the results with a timeout, this might fail
+            // Make sure to fetch analysis results later
             await onAnalysisIdReceived(domain, analysisId);
+        } catch (e) {
+            console.error(e);
+            // We didn't get the analysis ID, can't fetch the report
+            removeDomainFromPendingImmediatePOst(domain);
         }
     }, POST_URL_TIMEOUT_MS);
 }
@@ -71,7 +79,7 @@ export const fetchResultsWithRetries = async (analysisId, domain) => {
     try {
         await fetchResults(analysisId, domain);
     } catch (error) {
-        if (error.message === "ResultsNotReady") {
+        if (error instanceof ResultsNotReadyError) {
             if (retryCount < REPORT_FETCH_MAX_RETRIES) {
                 await increaseRetryCount(analysisId);
                 const backoffTime = retryCount + 1;
@@ -83,6 +91,8 @@ export const fetchResultsWithRetries = async (analysisId, domain) => {
             }
         } else {
             console.error("Error fetching results: ", error);
+            await removeDomainFromPending(domain);
+            await clearAlarmForAnalysisRetrieval(analysisId);
         }
     }
 };
@@ -90,21 +100,26 @@ export const fetchResultsWithRetries = async (analysisId, domain) => {
 // Fetch results by analysis ID and perform necessary cleanup
 export const fetchResults = async (analysisId, domain) => {
     const data = await getAnalysisResults(analysisId);
-    if (!data) return;
 
-    await saveAndDisplayResults(data);
-
-    // Cleanup
     await removeDomainFromPending(domain);
     await clearAlarmForAnalysisRetrieval(analysisId);
+
+    await saveAndDisplayResults(data);
 };
+
 
 // Sets a timeout for analysis results retrieval, as well as an alarm which will wake the script up if it gets unmounted
 const onAnalysisIdReceived = async (domain, analysisId) => {
     // Set timeout for fetching results, this might not fire
     setTimeout(() => {
         fetchResults(analysisId, domain)
-            .catch(error => console.error('Error fetching results for', domain, ':', error));
+            .catch(async error => {
+               if(!(error instanceof ResultsNotReadyError)) {
+                   console.error('Error fetching results for', domain, ':', error);
+                   await removeDomainFromPending(domain);
+                   await clearAlarmForAnalysisRetrieval(analysisId);
+               }
+            });
     }, REPORT_FETCH_DELAY_MS);
 
     createAlarmForAnalysisRetrieval(analysisId, domain)
