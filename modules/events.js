@@ -6,6 +6,9 @@ import {CLEANUP_INTERVAL_MIN} from "../const.js";
 
 // Monitor tab updates to check when a new URL is loaded
 export const onTabUpdated = async (tabId, changeInfo, tab) => {
+    // Ignore the tab if it's not in a complete state
+    if (changeInfo.status !== 'complete') return;
+
     await handleTabUpdated(tabId, changeInfo, tab);
 }
 

@@ -21,9 +21,6 @@ import {
 } from "./timeout.service.js";
 
 export const handleTabUpdated = async (tabId, changeInfo, tab) => {
-    // Ignore the tab if it's not in a complete state or doesn't have a URL
-    if (changeInfo.status !== 'complete') return;
-
     // Firstly refresh to represent current state of the site
     await refreshPopupIfOpen()
 
