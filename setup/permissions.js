@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Fetch data from VirusTotal API
         fetch(VT_API_URLS.GET_QUOTAS)
-            .then(response => {
+            .then(() => {
                 // Regardless of the response status code, we proceed to the next page
                 window.location.href = "whyApi.html";
             })
