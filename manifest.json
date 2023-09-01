@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ScamAlert",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Scans URLs using VirusTotal API and alerts you of malicious websites.",
   "default_locale": "en",
   "permissions": ["activeTab", "webRequest", "storage", "unlimitedStorage", "alarms"],
