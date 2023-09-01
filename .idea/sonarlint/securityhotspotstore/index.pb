@@ -1,8 +1,6 @@
 
 ?
 popup/popup.css,8/0/80461dca19a914c8c30a89090899d57b0211f4d5
-A
-lib/popper.min.js,4/1/41849ccfc868db0be8944e1a7f241d71de712039
 H
 background/background.js,2/3/23cd7f5a67a0fba414456f9871421637cfa768d7
 >
@@ -25,3 +23,35 @@ M
 modules/utils.js,1/3/133f40b249354e1fcb50f42b6348895c0ed9f18a
 D
 lib/bootstrap.min.js,c/4/c4ad18ed7ed5eac0793f13064468350c015e5ca8
+D
+lib/lightbox.min.css,9/3/9354eded2daccb26b45a1b7b5bcd8e0801372e60
+O
+lib/lightbox-plus-jquery.min.js,3/a/3accd0edbd802f63a003e778b89f7cdb88d8960b
+?
+warn/warning.js,7/1/71eac4ad1672b8bb9e6a6ce37f69d0e7aa937598
+@
+warn/warning.css,a/d/ad97055dbbf4490a24db7ada7ecfb9ddf3d6a425
+>
+popup/popup.js,2/8/2840344f74922677035de31b19fb014ac0a46c58
+@
+popup/popup.html,c/a/cadd5b17d950a102d88e70b7b141c17e602ac470
+A
+setup/apiKey.html,a/e/ae9d250f1e3adf712bf25733f38dd66edb027919
+A
+setup/whyApi.html,a/5/a50c51e68c7ef6b7d93b1fa05dc5b0bafe36efd6
+A
+setup/allSet.html,7/f/7f286c4e1aae4471c0b8dc3b4f4a7f3bbee73e93
+A
+warn/warning.html,8/0/80aeca1da70e9dd7b9bed35524d00bc67ecf120d
+B
+setup/welcome.html,8/9/890f8f99fdee809d05c25035762426c43b3bb315
+=
+manifest.json,c/a/ca642a22686971b261b60de81d8ff554fdd91e2e
+9
+	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+F
+setup/permissions.html,0/1/017d58ebd17b43915f315b376b05daa8831bb709
+I
+_locales/en/messages.json,c/8/c872ac040a712099648be476fa228cdca5368b68
+I
+_locales/hr/messages.json,e/1/e13618b035246abd46da75967cedab3dc81d5ecf

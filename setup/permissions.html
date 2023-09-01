@@ -18,11 +18,24 @@
             <li data-i18n="permission_alarms"></li>
             <li data-i18n="permission_host_permissions"></li>
         </ul>
+
+        <hr class="my-4">
+
+        <h2 data-i18n="permission_important_note_title"></h2>
+        <p data-i18n="permission_important_note_intro"></p>
+        <ol>
+            <li data-i18n="permission_important_note_step1"></li>
+            <li data-i18n="permission_important_note_step2"></li>
+            <li data-i18n="permission_important_note_step3"></li>
+            <li data-i18n="permission_important_note_step4"></li>
+        </ol>
+        <div id="warning-section" class="alert alert-danger d-none" data-i18n="permission_grant_error"></div>
         <hr class="my-4">
         <p data-i18n="permissions_privacy_note"></p>
-        <a class="btn btn-primary btn-lg" href="whyApi.html" role="button" data-i18n="next"></a>
+        <a id="nextButton" class="btn btn-primary btn-lg" role="button" data-i18n="next"></a>
     </div>
 </div>
 </body>
-    <script type="module" src="../modules/translation.js"></script>
+<script type="module" src="../modules/translation.js"></script>
+<script type="module" src="permissions.js"></script>
 </html>

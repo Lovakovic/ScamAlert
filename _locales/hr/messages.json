@@ -122,6 +122,27 @@
   "permissions_privacy_note": {
     "message": "Proširenje skenira samo domenski dio URL-a koji je zatim poslan isključivo VirusTotal-u. Vaša privatnost je naš najveći prioritet, zbog toga se svi vaši podatci vezani za proširenje nalaze isključivo na vašem računalu."
   },
+  "permission_important_note_title": {
+    "message": "Važno: Omogućavanje dozvole 'Pristup vašim podacima za sve web stranice'"
+  },
+  "permission_important_note_intro": {
+    "message": "Ovo proširenje zahtjeva dozvolu 'Pristup vašim podacima za sve web stranicame' kako bi ispravno funkcioniralo. Bez odobravanja navedene dozvole proširenje ne može raditi."
+  },
+  "permission_important_note_step1": {
+    "message": "Desni klik na ikonu proširenja u vašoj alatnoj traci preglednika."
+  },
+  "permission_important_note_step2": {
+    "message": "Odaberite 'Upravljaj proširenjem' iz kontekstnog izbornika koji se pojavi."
+  },
+  "permission_important_note_step3": {
+    "message": "Na novoj stranici, kliknite na karticu 'Dozvole'."
+  },
+  "permission_important_note_step4": {
+    "message": "Pronađite dozvolu 'Pristupi tvojim podacima za sve web stranice' i omogućite je klikom na gumb pored nje."
+  },
+  "permission_grant_error": {
+    "message": "Proširenje ne može raditi bez dozvole 'Prostup vašim podacima za sve web stranice'. Molimo vas da odobrite dozvolu prije nastavljanja."
+  },
   "title_why_api": {
     "message": "Zašto vam je potreban VirusTotal API ključ?"
   },

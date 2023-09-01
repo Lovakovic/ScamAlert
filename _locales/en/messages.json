@@ -122,6 +122,27 @@
   "permissions_privacy_note": {
     "message": "We only send the domain part of the URL to the VirusTotal API for analysis, and do not share your data with anyone else. Your privacy is our utmost priority."
   },
+  "permission_important_note_title": {
+    "message": "Important: Enabling 'Access your data for all websites'"
+  },
+  "permission_important_note_intro": {
+    "message": "This extension requires the 'Access your data for all websites' permission to function properly. Without it, the extension cannot operate as intended."
+  },
+  "permission_important_note_step1": {
+    "message": "Right-click on the extension icon in your browser toolbar."
+  },
+  "permission_important_note_step2": {
+    "message": "Select 'Manage extension' from the context menu that appears."
+  },
+  "permission_important_note_step3": {
+    "message": "In the new page, click on the 'Permission' tab."
+  },
+  "permission_important_note_step4": {
+    "message": "Find the 'Access your data for all websites' permission and enable it by toggling the button next to it."
+  },
+  "permission_grant_error": {
+    "message": "The extension cannot work without the 'Access your data for all websites' permission. Please enable it to continue."
+  },
   "title_why_api": {
     "message": "Why Do You Need the VirusTotal API Key?"
   },
