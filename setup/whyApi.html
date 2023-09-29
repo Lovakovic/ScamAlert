@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title data-i18n="title_why_api"></title>
+    <title data-i18n="why_api_title"></title>
     <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../lib/lightbox.min.css">
     <link rel="icon" type="image/x-icon" href="../icons/favicon.ico">
@@ -9,35 +9,80 @@
 <body class="mb-5">
 <div class="container">
     <div class="jumbotron mt-5">
-        <h1 class="display-4" data-i18n="header_why_api"></h1>
-        <p class="lead" data-i18n="desc_why_api"></p>
+        <h1 class="display-4" data-i18n="why_api_header"></h1>
+        <p class="lead" data-i18n="why_api_description"></p>
+        <div class="alert alert-info" data-i18n="why_api_free_no_credit_card"></div>
 
-        <h3 class="mt-4" data-i18n="steps_api_key"></h3>
-        <ol>
-            <li data-i18n="step1_api_key"></li>
-            <li>
-                <span data-i18n="step2_api_key_text"></span>
-                <a href="https://www.virustotal.com/gui/user/USERNAME/apikey" target="_blank" data-i18n-html="step2_api_key_link"></a>
-                <span data-i18n="step2_api_key_note"></span>
-                <br>
-                <a href="my_profile.png" data-lightbox="image-1" data-title="Guide Image - Accessing API Key Section">
-                    <img src="my_profile.png" alt="Guide Image - Accessing API Key Section" class="img-fluid mt-2">
-                </a>
-                <div class="mt-2 mb-4" data-i18n="guide_image_api_key_access"></div>
-            </li>
-            <li>
-                <span data-i18n="step3_api_key_text"></span>
-                <br>
-                <a href="copy_api_key.png" data-lightbox="image-2" data-title="Guide Image - Copying the API Key">
-                    <img src="copy_api_key.png" alt="Guide Image - Copying the API Key" class="img-fluid mt-2">
-                </a>
-                <div class="mt-2 mb-4" data-i18n="guide_image_copy_api_key"></div>
-            </li>
-        </ol>
+        <div class="accordion" id="apiAccordion">
+            <!-- Steps to Get API Key -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#apiSteps" aria-expanded="true">
+                        <h3 data-i18n="why_api_steps"></h3>
+                    </button>
+                </h2>
+                <div id="apiSteps" class="accordion-collapse collapse show">
+                    <div class="accordion-body">
+                        <ol>
+                            <li data-i18n="why_api_steps_step1"></li>
+                            <li data-i18n="why_api_steps_step2"></li>
+                            <li data-i18n="why_api_steps_step3"></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Guide -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#imageGuide" aria-expanded="false">
+                        <h4 data-i18n="why_api_image_guide_header"></h4>
+                    </button>
+                </h2>
+                <div id="imageGuide" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <p data-i18n="why_api_image_guide_intro"></p>
+                        <hr>
+                        <div class="row">
+                            <div class="col">
+                                <div class="mt-2 mb-4" data-i18n="why_api_image_guide_img1_desc"></div>
+                                <a href="my_profile.png" data-lightbox="image-1" data-title="Guide Image - Accessing API Key Section">
+                                    <img src="my_profile.png" alt="Guide Image - Accessing API Key Section" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="col">
+                                <div class="mt-2 mb-4" data-i18n="why_api_image_guide_img2_desc"></div>
+                                <a href="copy_api_key.png" data-lightbox="image-2" data-title="Guide Image - Copying the API Key">
+                                    <img src="copy_api_key.png" alt="Guide Image - Copying the API Key" class="img-fluid">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Explanation of API Key -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#apiExplanation" aria-expanded="false">
+                        <h4 data-i18n="why_api_what_is_api_header"></h4>
+                    </button>
+                </h2>
+                <div id="apiExplanation" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <p data-i18n="why_api_what_is_api_desc"></p>
+                        <h5 data-i18n="why_api_why_own_api_key_header"></h5>
+                        <p data-i18n="why_api_why_own_api_key_desc1"></p>
+                        <p data-i18n="why_api_why_own_api_key_desc2"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <hr class="my-4">
         <a class="btn btn-primary btn-lg" href="apiKey.html" role="button" data-i18n="next"></a>
     </div>
 </div>
+<script src="../lib/bootstrap.bundle.min.js"></script>
 <script src="../lib/lightbox-plus-jquery.min.js"></script>
 <script type="module" src="../modules/translation.js"></script>
 </body>

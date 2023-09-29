@@ -126,7 +126,10 @@
     "message": "Important: Enabling 'Access your data for all websites'"
   },
   "permission_important_note_intro": {
-    "message": "This extension requires the 'Access your data for all websites' permission to function properly. Without it, the extension cannot operate as intended."
+    "message": "This extension requires the 'Access your data for all websites' permission to function properly. Without it, the extension cannot operate as intended. Enabling this permission allows the extension to see URLs of the pages you visit, which is necessary for scanning domains."
+  },
+  "permission_important_note_guide": {
+    "message": "Below are the steps to give the permission:"
   },
   "permission_important_note_step1": {
     "message": "Right-click on the extension icon in your browser toolbar."
@@ -143,52 +146,70 @@
   "permission_grant_error": {
     "message": "The extension cannot work without the 'Access your data for all websites' permission. Please enable it to continue."
   },
-  "title_why_api": {
+  "why_api_title": {
     "message": "Why Do You Need the VirusTotal API Key?"
   },
-  "header_why_api": {
+  "why_api_header": {
     "message": "Why the API Key?"
   },
-  "desc_why_api": {
+  "why_api_description": {
     "message": "To analyze the URLs and ensure your safety, our extension relies on the VirusTotal service..."
   },
-  "steps_api_key": {
+  "why_api_free_no_credit_card": {
+    "message": "Don't worry, it's totally free, no credit card or any sensitive info required."
+  },
+  "why_api_steps": {
     "message": "Steps to Get Your API Key"
   },
-  "step1_api_key": {
+  "why_api_steps_step1": {
     "message": "Register for a free account on <a href='https://www.virustotal.com/gui/join-us' target='_blank'>VirusTotal</a>."
   },
-  "step2_api_key_text": {
-    "message": "Once registered, go to your API key section or use the link"
+  "why_api_steps_step2": {
+    "message": "Once registered, go to your API key section or use the link <b>www.virustotal.com/gui/user/USERNAME/apikey</b> and replace <b>USERNAME</b> with the username of the VirusTotal account you've registered in the previous step."
   },
-  "step2_api_key_link": {
-    "message": "https://www.virustotal.com/gui/user/USERNAME/apikey"
+  "why_api_steps_step3": {
+    "message": "On the VirusTotal page, click the `Copy API key` button to copy the API key to your clipboard. Once you've copied the API key, proceed to the next page by clicking the 'Next' button."
   },
-  "step2_api_key_note": {
-    "message": "replacing USERNAME with your VirusTotal's account username."
+  "why_api_image_guide_intro": {
+    "message": "Alternatively, browse for VirusTotal, register for an account, and follow the image guide shown below."
   },
-  "guide_image_api_key_access": {
+  "why_api_image_guide_header": {
+    "message": "Image Guide for API Key Access"
+  },
+  "why_api_image_guide_img1_desc": {
     "message": "This image guides you to access the API Key section of your VirusTotal account."
   },
-  "step3_api_key_text": {
-    "message": "Click the `Copy API key` button to copy the API key to your clipboard."
-  },
-  "guide_image_copy_api_key": {
+  "why_api_image_guide_img2_desc": {
     "message": "This image shows you where to click to copy the API key to your clipboard."
   },
-  "title_api_key": {
+  "why_api_what_is_api_header": {
+    "message": "What is an API Key and Why Do You Need It?"
+  },
+  "why_api_what_is_api_desc": {
+    "message": "An API key is like a secret password that allows our extension to talk to VirusTotal's servers. It helps us scan the URLs you visit to check if they are safe or potentially harmful."
+  },
+  "why_api_why_own_api_key_header": {
+    "message": "Why Do You Need Your Own API Key?"
+  },
+  "why_api_why_own_api_key_desc1": {
+    "message": "Each API key has a limited quota for requests to VirusTotal. Sharing a single key between all users would quickly exhaust this limit, making the service unavailable."
+  },
+  "why_api_why_own_api_key_desc2": {
+    "message": "Our extension is designed with privacy in mind. All its logic and data reside on your side, meaning it needs to communicate directly with VirusTotal, without any middlemen. Your own API key ensures this direct, secure communication."
+  },
+  "api_key_title": {
     "message": "Enter VirusTotal API key"
   },
-  "header_api_key": {
+  "api_key_header": {
     "message": "Enter Your API Key"
   },
-  "description_api_key": {
+  "api_key_description": {
     "message": "Now that you have your VirusTotal API key, please enter it below:"
   },
-  "note_secure_api_key": {
+  "api_key_secure_note": {
     "message": "Note: We do not share your API key with anyone. It is stored securely in your browser's local storage."
   },
-  "note_invalid_api_key": {
+  "api_key_invalid_key": {
     "message": "Invalid API key. Please check and try again."
   },
   "button_save": {
@@ -197,7 +218,7 @@
   "all_set": {
     "message": "All set!"
   },
-  "desc_all_set": {
+  "all_set_description": {
     "message": "Your setup is complete. You can now enjoy safe browsing with VirusTotal Scanner."
   },
   "button_close": {

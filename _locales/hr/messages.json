@@ -84,7 +84,7 @@
     "message": "ScamAlert je proširenje za Firefox koja provjerava URL-ove koje posjećujete u potrazi za zlonamjernim sadržajem. Koristi VirusTotal API za skeniranje domena i upozorava vas kada posjetite zlonamjerne domene."
   },
   "welcome_note": {
-    "message": "<b>Napomena:</b> Iako proširenje koristi VirusTotal API, ScamAlert ni na kakav način nije povezan s VirusTotal-om. Za dodatne uvijete korištenje VirusTotal API-ja provjerite službene VirusTotal stranice."
+    "message": "<b>Napomena:</b> Iako proširenje koristi VirusTotal API, ScamAlert ni na kakav pravni način nije povezan s VirusTotal-om. Za dodatne uvijete korištenje VirusTotal API-ja provjerite službene VirusTotal stranice."
   },
   "welcome_instruction": {
     "message": "Za početak kliknite na gumb \"Dalje\" ispod."
@@ -99,7 +99,7 @@
     "message": "Dozvole i privatnost"
   },
   "permissions_intro": {
-    "message": "Ova ekstenzija zahtijeva određene dozvole kako bi ispravno funkcionirala. To su:"
+    "message": "ScamAlert proširenje zahtijeva određene dozvole kako bi ispravno funkcioniralo. To su:"
   },
   "permission_active_tab": {
     "message": "<b>Pregled aktivne kartice:</b> Omogućuje interakciju s trenutno aktivnom karticom i skeniranje URL-ova za potencijalne prijetnje."
@@ -126,7 +126,10 @@
     "message": "Važno: Omogućavanje dozvole 'Pristup vašim podacima za sve web stranice'"
   },
   "permission_important_note_intro": {
-    "message": "Ovo proširenje zahtjeva dozvolu 'Pristup vašim podacima za sve web stranicame' kako bi ispravno funkcioniralo. Bez odobravanja navedene dozvole proširenje ne može raditi."
+    "message": "Ovo proširenje zahtjeva dozvolu 'Pristup vašim podacima za sve web stranicame' kako bi ispravno funkcioniralo. Odobravanje ove dozvole omogućava proširenju uvid u URL-ove koje posjećujuete, što je ključno za analiziranje domena. Bez odobravanja navedene dozvole proširenje ne može raditi."
+  },
+  "permission_important_note_guide": {
+    "message": "Ispod su opisani koraci za odobravanje dozvole:"
   },
   "permission_important_note_step1": {
     "message": "Desni klik na ikonu proširenja u vašoj alatnoj traci preglednika."
@@ -143,52 +146,70 @@
   "permission_grant_error": {
     "message": "Proširenje ne može raditi bez dozvole 'Prostup vašim podacima za sve web stranice'. Molimo vas da odobrite dozvolu prije nastavljanja."
   },
-  "title_why_api": {
+  "why_api_title": {
     "message": "Zašto vam je potreban VirusTotal API ključ?"
   },
-  "header_why_api": {
-    "message": "Zašto je potreban API ključ?"
+  "why_api_header": {
+    "message": "Zašto API ključ?"
   },
-  "desc_why_api": {
-    "message": "Da bismo analizirali URL-ove i osigurali vašu sigurnost, naša ekstenzija oslanja se na VirusTotal usluge..."
+  "why_api_description": {
+    "message": "Da bismo analizirali URL-ove i osigurali vašu sigurnost, naše proširenje oslanja se na uslugu VirusTotal..."
   },
-  "steps_api_key": {
+  "why_api_free_no_credit_card": {
+    "message": "Ne brinite, potpuno je besplatno, nije potrebna kreditna kartica niti bilo kakvi osjetljivi podaci."
+  },
+  "why_api_steps": {
     "message": "Koraci za dobivanje vašeg API ključa"
   },
-  "step1_api_key": {
+  "why_api_steps_step1": {
     "message": "Registrirajte se za besplatan račun na <a href='https://www.virustotal.com/gui/join-us' target='_blank'>VirusTotal</a>."
   },
-  "step2_api_key_text": {
-    "message": "Nakon registracije idite na odjeljak vašeg API ključa (`API key`) ili koristite poveznicu"
+  "why_api_steps_step2": {
+    "message": "Nakon registracije, idite na odjeljak s vašim API ključem ili koristite poveznicu <b>www.virustotal.com/gui/user/USERNAME/apikey</b> i zamijenite <b>USERNAME</b> s korisničkim imenom VirusTotal računa koji ste registrirali u prethodnom koraku."
   },
-  "step2_api_key_link": {
-    "message": "https://www.virustotal.com/gui/user/USERNAME/apikey"
+  "why_api_steps_step3": {
+    "message": "Na VirusTotal stranici, kliknite na gumb 'Kopiraj API ključ' ili 'Copy API key' da kopirate API ključ u međuspremnik. Nakon što ste kopirali ključ vratite se na ovu stranicu i prijeđite na iduću klikom na gumb 'Dalje'."
   },
-  "step2_api_key_note": {
-    "message": "zamijenite USERNAME s vašim korisničkim imenom na VirusTotal računu."
+  "why_api_image_guide_intro": {
+    "message": "Alternativno, potražite VirusTotal u pretraživaču, registrirajte se za račun i slijedite slikovni vodič koji se nalazi ispod."
   },
-  "guide_image_api_key_access": {
-    "message": "Ova slika vam pokazuje kako pristupiti odjeljku API ključa vašeg VirusTotal računa."
+  "why_api_image_guide_header": {
+    "message": "Slikovni vodič za pristup API ključu"
   },
-  "step3_api_key_text": {
-    "message": "Kliknite na gumb `Copy API key` kako biste kopirali API ključ u vaš međuspremnik."
+  "why_api_image_guide_img1_desc": {
+    "message": "Ova slika pokazuje gdje se nalazi odjeljak API ključa vašeg VirusTotal računa."
   },
-  "guide_image_copy_api_key": {
-    "message": "Ova slika pokazuje gdje kliknuti kako biste kopirali API ključ u vaš međuspremnik."
+  "why_api_image_guide_img2_desc": {
+    "message": "Ova slika pokazuje gdje kliknuti da kopirate API ključ u međuspremnik."
   },
-  "title_api_key": {
+  "why_api_what_is_api_header": {
+    "message": "Što je API ključ i zašto vam je potreban?"
+  },
+  "why_api_what_is_api_desc": {
+    "message": "API ključ je kao tajna lozinka koja proširenju omogućava komunikaciju s VirusTotal poslužiteljima. Koristeći API ključ proširenje se autentificira u VirusTotal i time dobiva mogućnost korištenja usluge skeniranja domena."
+  },
+  "why_api_why_own_api_key_header": {
+    "message": "Zašto vam je potreban vlastiti API ključ?"
+  },
+  "why_api_why_own_api_key_desc1": {
+    "message": "Svaki API ključ ima ograničenu kvotu za zahtjeve prema VirusTotalu. Dijeljenje jednog ključa između svih korisnika brzo bi iscrpilo ovo ograničenje, čineći uslugu nedostupnom."
+  },
+  "why_api_why_own_api_key_desc2": {
+    "message": "Naše je proširenje dizajnirano s privatnosti na umu. Sva logika i podaci nalaze se na vašoj strani, što znači da treba izravno komunicirati s VirusTotalom, bez posrednika. Vaš vlastiti API ključ osigurava ovu izravnu, sigurnu komunikaciju."
+  },
+  "api_key_title": {
     "message": "Unesite VirusTotal API ključ"
   },
-  "header_api_key": {
+  "api_key_header": {
     "message": "Unesite svoj API ključ"
   },
-  "description_api_key": {
+  "api_key_description": {
     "message": "Sada kada imate svoj VirusTotal API ključ, molimo vas da ga unesete ispod:"
   },
-  "note_secure_api_key": {
+  "api_key_secure_note": {
     "message": "Napomena: Ne dijelimo vaš API ključ ni s kim. Spremljen je sigurno u lokalnoj pohrani vašeg preglednika."
   },
-  "note_invalid_api_key": {
+  "api_key_invalid_key": {
     "message": "Neispravan API ključ. Molimo probajte ponovno."
   },
   "button_save": {
@@ -197,7 +218,7 @@
   "all_set": {
     "message": "Sve je spremno!"
   },
-  "desc_all_set": {
+  "all_set_description": {
     "message": "Postavljanje prošitenja je završeno. Sada možete uživati u sigurnom surfanju internetom."
   },
   "button_close": {
