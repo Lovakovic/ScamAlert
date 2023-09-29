@@ -15,7 +15,7 @@ export const setTabTimeout = async (tabId, domain, timeoutCallback, delay) => {
 
         const timeoutId = setTimeout(() => {
             timeoutCallback();
-            delete domainsPendingImmediatePost[domain];
+            removeDomainFromPendingImmediatePost(domain);
         }, delay);
 
         tabTimeouts[tabId] = {
@@ -34,7 +34,7 @@ export const manageScanTimeoutsForDomain = (tabId, currentDomain) => {
             delete domainTabsCount[previousDomain];
             if (tabTimeouts[tabId]?.timeoutId) {
                 clearTimeout(tabTimeouts[tabId].timeoutId);
-                delete domainsPendingImmediatePost[previousDomain];
+                removeDomainFromPendingImmediatePost(previousDomain);
                 delete tabTimeouts[tabId];
             }
         }
@@ -49,6 +49,6 @@ export const markDomainAsPendingImmediatePost = (domain) => {
     domainsPendingImmediatePost[domain] = (domainsPendingImmediatePost[domain] || 0) + 1;
 }
 
-export const removeDomainFromPendingImmediatePOst = (domain) => {
-    domainsPendingImmediatePost[domain] = undefined;
+export const removeDomainFromPendingImmediatePost = (domain) => {
+    delete domainsPendingImmediatePost[domain];
 }

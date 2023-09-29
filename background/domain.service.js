@@ -20,7 +20,7 @@ import {
     isDomainPendingImmediatePost,
     manageScanTimeoutsForDomain,
     markDomainAsPendingImmediatePost,
-    removeDomainFromPendingImmediatePOst,
+    removeDomainFromPendingImmediatePost,
     setTabTimeout
 } from "./timeout.service.js";
 
@@ -49,9 +49,9 @@ export const handleTabUpdated = async (tabId, changeInfo, tab) => {
     // before the first timeout for that domain had a chance to POST the URL
     if (isDomainPendingImmediatePost(domain)) return;
 
-    // This prevents setting the timeout for a domain that's already been posted for a scan
-    const isPendingScan = await isDomainPendingScanResults(domain);
-    if (isPendingScan) return;
+    // This prevents setting the timeout for a domain that's already been posted for a scan and is pending results
+    const isPendingResults = await isDomainPendingScanResults(domain);
+    if (isPendingResults) return;
 
     markDomainAsPendingImmediatePost(domain);
 
@@ -68,7 +68,7 @@ export const handleTabUpdated = async (tabId, changeInfo, tab) => {
         } catch (e) {
             console.error(e);
             // We didn't get the analysis ID, can't fetch the report
-            removeDomainFromPendingImmediatePOst(domain);
+            removeDomainFromPendingImmediatePost(domain);
         }
     }, POST_URL_TIMEOUT_MS);
 }
