@@ -39,7 +39,7 @@
     "message": "Error: No active tab"
   },
   "info_non_http": {
-    "message": "This site won't be scanned as only domains using HTTP or HTTPS protocols are scanned."
+    "message": "This site won't be scanned as only public domains using HTTP or HTTPS protocols eligible for a scan."
   },
   "status_loading": {
     "message": "Loading..."

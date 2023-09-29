@@ -115,3 +115,12 @@ export const refreshPopupIfOpen = async () => {
         browser.runtime.sendMessage({ command: 'refreshPopup' });
     }
 }
+
+export const shouldSkipUrlScan = (url) => {
+    if (!url.protocol.startsWith('http')) return true;
+    if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') return true;
+
+    // Skip private IP addresses
+    const ipPattern = /^(192\.168\.|169\.254\.|10\.|172\.(1[6-9]|2\d|3[01]))/;
+    return !!(ipPattern.test(url.hostname));
+}

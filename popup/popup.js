@@ -1,7 +1,7 @@
 import {getApiKey, getDomainData, getMaliciousScannedCount, getTotalScannedCount} from "../modules/storage.js";
 import {MALICIOUS_THRESHOLD} from "../const.js";
 import {getQuotaSummary} from "../modules/api.js";
-import {isDomainMuted, updateMuteStatusForDomain} from "../modules/utils.js";
+import {isDomainMuted, shouldSkipUrlScan, updateMuteStatusForDomain} from "../modules/utils.js";
 import {translatePageContent} from "../modules/translation.js";
 
 const greenColor = '#3e9444';
@@ -93,7 +93,7 @@ export const refreshPopup = async () => {
     let url = new URL(tab.url);
     let domain = url.hostname;
 
-    if (!url.protocol.startsWith('http')) {
+    if (shouldSkipUrlScan(url)) {
         setStatus('status_site_not_scanned', 'info_non_http', blueColor);
         return;
     }

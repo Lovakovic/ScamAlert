@@ -39,7 +39,7 @@
     "message": "Greška: Nema aktivne kartice"
   },
   "info_non_http": {
-    "message": "Ova stranica neće biti skenirana jer se skeniraju samo domene koje koriste HTTP ili HTTPS protokol."
+    "message": "Ova stranica neće biti skenirana jer se skeniraju samo javne domene koje koriste HTTP ili HTTPS protokol."
   },
   "status_loading": {
     "message": "Učitavanje..."

@@ -14,7 +14,7 @@ import {
     createAlarmForAnalysisRetrieval,
     extractDomainFromUrl,
     refreshPopupIfOpen,
-    saveAndDisplayResults
+    saveAndDisplayResults, shouldSkipUrlScan
 } from "../modules/utils.js";
 import {
     isDomainPendingImmediatePost,
@@ -27,10 +27,10 @@ import {
 export const handleTabUpdated = async (tabId, changeInfo, tab) => {
     // Firstly refresh to represent current state of the site
     await refreshPopupIfOpen()
-
-    // Don't scan non-HTTP URLs
     const url = new URL(tab.url);
-    if (!url.protocol.startsWith('http')) return;
+
+    // Don't scan URLs which aren't public
+    if (shouldSkipUrlScan(url)) return;
 
     const domain = extractDomainFromUrl(url);
 
