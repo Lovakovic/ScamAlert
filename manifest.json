@@ -6,7 +6,7 @@
   "default_locale": "en",
   "permissions": ["activeTab", "webRequest", "storage", "unlimitedStorage", "alarms"],
   "background": {
-    "scripts": ["background/background.js"],
+    "service_worker": "background/background.js",
     "type": "module"
   },
   "action": {
@@ -18,11 +18,5 @@
   },
   "host_permissions": [
     "<all_urls>"
-  ],
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "{e120d6a0-4fa1-4778-aeaf-d0ecf9e946be}",
-      "strict_min_version": "115.0"
-    }
-  }
+  ]
 }

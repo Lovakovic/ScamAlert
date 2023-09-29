@@ -26,7 +26,10 @@ import {
 
 export const handleTabUpdated = async (tabId, changeInfo, tab) => {
     // Firstly refresh to represent current state of the site
-    await refreshPopupIfOpen()
+    refreshPopupIfOpen()
+
+    if (!tab.url || typeof tab.url !== 'string') return;
+
     const url = new URL(tab.url);
 
     // Don't scan URLs which aren't public
@@ -83,7 +86,7 @@ export const fetchResultsWithRetries = async (analysisId, domain) => {
             if (retryCount < REPORT_FETCH_MAX_RETRIES) {
                 await increaseRetryCount(analysisId);
                 const backoffTime = retryCount + 1;
-                browser.alarms.create(analysisId, { delayInMinutes: backoffTime });
+                chrome.alarms.create(analysisId, { delayInMinutes: backoffTime });  // Changed browser to chrome
             } else {
                 console.error("Max retries reached for", domain);
                 await removeDomainFromPending(domain);

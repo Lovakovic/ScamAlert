@@ -17,8 +17,8 @@ function setStatus(messageKey, infoKey, color, ...placeholders) {
     let infoElement = document.getElementById('info');
     mainContent.style.background = color;
 
-    statusElement.textContent = browser.i18n.getMessage(messageKey);
-    infoElement.textContent = browser.i18n.getMessage(infoKey, ...placeholders);
+    statusElement.textContent = chrome.i18n.getMessage(messageKey);
+    infoElement.textContent = chrome.i18n.getMessage(infoKey, ...placeholders);
     translatePageContent()
 }
 
@@ -60,7 +60,7 @@ export const refreshPopup = async () => {
     let malicious = await getMaliciousScannedCount();
     let safe = total - malicious;
 
-    document.getElementById('totalSites').textContent = browser.i18n.getMessage('total_sites_scanned', total);
+    document.getElementById('totalSites').textContent = chrome.i18n.getMessage('total_sites_scanned', total);
 
     setLegendColors();
     drawChart(safe, malicious);
@@ -79,12 +79,12 @@ export const refreshPopup = async () => {
         toggleQuotaBarsVisibility(false);
         translatePageContent()
         document.getElementById('setup-button').addEventListener('click', function() {
-            browser.tabs.create({ url: "../setup/welcome.html" });
+            chrome.tabs.create({ url: "../setup/welcome.html" });
         });
         return;
     }
 
-    let tab = (await browser.tabs.query({ active: true, currentWindow: true }))[0];
+    let tab = (await chrome.tabs.query({ active: true, currentWindow: true }))[0];
     if (!tab?.url) {
         setStatus('status_site_not_scanned', 'info_no_active_tab', blueColor);
         return;
@@ -120,10 +120,14 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => console.error(error));
 });
 
-browser.runtime.onMessage.addListener(async (message) => {
-    if (message.command === "refreshPopup") {
-        await refreshPopup();
-    }
+// When the popup is opened
+window.addEventListener("load", function() {
+    chrome.storage.local.set({ isPopupOpen: true });
+});
+
+// When the popup is closed
+window.addEventListener("unload", function() {
+    chrome.storage.local.set({ isPopupOpen: false });
 });
 
 function updateQuotaBars(data) {
@@ -146,13 +150,14 @@ function setProgressValue(elementId, value) {
 }
 
 muteCheckbox.addEventListener("change", () => {
-    browser.tabs.query({ active: true, currentWindow: true })
+    chrome.tabs.query({ active: true, currentWindow: true })
         .then(tabs => {
             const tab = tabs[0];
             if (!tab) {
                 console.log("No active tab found");
                 return;
             }
+            if (!tab.url || typeof tab.url !== 'string') return;
             const url = new URL(tab.url);
             const domain = url.hostname;
             updateMuteStatusForDomain(domain, muteCheckbox.checked).catch(error => console.log(error));

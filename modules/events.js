@@ -16,17 +16,17 @@ export const onTabUpdated = async (tabId, changeInfo, tab) => {
 export const onExtensionInstalled = async (details) => {
     if (details.reason === "install") {
         // Open the welcome setup page when the extension is installed
-        browser.tabs.create({ url: '../setup/welcome.html' });
+        chrome.tabs.create({ url: '../setup/welcome.html' });
 
         // Recurring alarm which will trigger stale analysis data cleanup
-        browser.alarms.create('cleanupAlarm', { periodInMinutes: CLEANUP_INTERVAL_MIN })
+        chrome.alarms.create('cleanupAlarm', { periodInMinutes: CLEANUP_INTERVAL_MIN })
     }
 }
 
 export const onMessageReceived = async (request) => {
     if (request.command === 'closeSetupTab') {
-        browser.tabs.query({active: true, currentWindow: true}).then(tabs => {
-            browser.tabs.remove(tabs[0].id);
+        chrome.tabs.query({active: true, currentWindow: true}).then(tabs => {
+            chrome.tabs.remove(tabs[0].id);
         });
     }
 }

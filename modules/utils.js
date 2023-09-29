@@ -1,5 +1,5 @@
 import {
-    cleaAnalysisIdFromStorage, getAllDomainAnalysisData, getDomainData,
+    clearAnalysisIdFromStorage, getAllDomainAnalysisData, getDomainData,
     incrementScannedCounter,
     markDomainAsNotified, replaceDomainAnalysisData,
     setAnalysisIdToStorage,
@@ -34,7 +34,7 @@ export const saveAndDisplayResults = async (data) => {
     }
 
     // Notify the popup to refresh if it is open
-    await refreshPopupIfOpen()
+    refreshPopupIfOpen()
 }
 
 // Checks if notification timeout has expired for a domain and triggers a re-notification in case it did
@@ -56,7 +56,7 @@ export const notifyAboutMaliciousDomain = async (domain, results) => {
     const isMuted = results?.muted || false;
 
     if (!isMuted && (lastNotified === 0 || currentTime - lastNotified > NOTIFICATION_EXPIRY_MS)) {        // Show warning for malicious site
-        browser.tabs.create({
+        chrome.tabs.create({
             url: `warn/warning.html?domain=${domain}`,
             active: true
         });
@@ -69,17 +69,22 @@ export const notifyAboutMaliciousDomain = async (domain, results) => {
 export const createAlarmForAnalysisRetrieval = async (analysisId, domain) => {
     // Set an alarm as a backup method to fetch results
     await setAnalysisIdToStorage(analysisId, domain);
-    browser.alarms.create(analysisId, { delayInMinutes: 1.0 });
+    chrome.alarms.create(analysisId, { delayInMinutes: 1.0 });
 }
 
 // Function to clear alarm data after it's been used
 export const clearAlarmForAnalysisRetrieval = async (analysisId) => {
-    const existingAlarm = await browser.alarms.get(analysisId);
+    const existingAlarm = await new Promise(resolve => {
+        chrome.alarms.get(analysisId, alarm => {
+            resolve(alarm);
+        });
+    });
+
     if (existingAlarm) {
-        browser.alarms.clear(analysisId);
+        chrome.alarms.clear(analysisId);
     }
 
-    await cleaAnalysisIdFromStorage(analysisId)
+    await clearAnalysisIdFromStorage(analysisId)
 };
 
 export const cleanupOldData = async () => {
@@ -110,11 +115,16 @@ export const isDomainMuted = async (domain) => {
     return domainData?.muted ?? false;
 }
 
-export const refreshPopupIfOpen = async () => {
-    if (browser.extension.getViews({ type: 'popup' }).length > 0) {
-        browser.runtime.sendMessage({ command: 'refreshPopup' });
-    }
-}
+// TODO: Rebuild the popup refreshing logic from scratch
+export const refreshPopupIfOpen = () => {
+    chrome.storage.local.get("isPopupOpen", function(data) {
+        if (data.isPopupOpen) {
+            chrome.runtime.sendMessage({ command: 'refreshPopup' }, function(response) {
+                if (chrome.runtime.lastError) { /* Ignore */ }
+            });
+        }
+    });
+};
 
 export const shouldSkipUrlScan = (url) => {
     if (!url.protocol.startsWith('http')) return true;

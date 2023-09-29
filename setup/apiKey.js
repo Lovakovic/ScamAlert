@@ -1,11 +1,11 @@
-import {isValidApiKey} from "../modules/api.js";
+import { isValidApiKey } from "../modules/api.js";
 
 document.getElementById('save-button').addEventListener('click', () => {
     let apiKey = document.getElementById('api-key').value;
 
     isValidApiKey(apiKey).then(isValid => {
         if (isValid) {
-            browser.storage.local.set({apiKey: apiKey}, () => {
+            chrome.storage.local.set({ apiKey: apiKey }, () => {
                 window.location.href = "allSet.html";
             });
         } else {
