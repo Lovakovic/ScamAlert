@@ -1,0 +1,39 @@
+Translating from Firefox to Chrome API:
+	Thing to know:
+	`
+		I'm working on a browser extension called ScamAlert, it uses VirusTotal API to scan the domains that the user visits and alerts the user of malicious ones.
+
+		 ScamAlert is written using plain HTML, CSS, JS. To aid with styling and usability, it also uses bootstrap and lightbox. It is using Manifest V3 and is developed in a way to support non-persistent environments.
+
+		 The extension also uses i18n API and is translated into multiple languages. At the moment it's written for Firefox only and I haven't taken into account and differences between Chrome and Firefox.
+
+		 Right now I'm adapting the code for Chrome. The version for Chrome will be separate than the one for Firefox. Some of the API logic will have to be rewritten, and some will just have to be adapted slightly.
+
+		 The current task at hand is refactoring the storage accessing logic from Promise based to callback based. We're doing each storage accessing function, one by one.
+
+		 I've two utility functions to avoid repeating code:
+		 `
+		 `
+		 const handleGet = (key, callback) => {
+			 chrome.storage.local.get([key], (result) => {
+				 if (chrome.runtime.lastError) {
+					 return callback(null, chrome.runtime.lastError);
+				 }
+				 callback(result[key]);
+			 });
+		 };
+		 const handleSet = (key, value, callback) => {
+			 chrome.storage.local.set({ [key]: value }, () => {
+				 if (chrome.runtime.lastError) {
+					 return callback(null, chrome.runtime.lastError);
+				 }
+				 callback(true);
+			 });
+		 };
+	 `
+	How to respond:
+	`
+		Help me by adapting my code which works in Firefox Manifest V3 non-persistent environment so it works in Chrome. Carefully take into account the differences in API and how they work. Suggest on potential improvements or redesigns. Provide easily readable code.
+
+		When asked to provide back the entire code, output the entire code asked for with the necessary modifications, not only a few examples.
+	`

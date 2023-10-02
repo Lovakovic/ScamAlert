@@ -22,8 +22,6 @@ M
 @
 modules/utils.js,1/3/133f40b249354e1fcb50f42b6348895c0ed9f18a
 D
-lib/bootstrap.min.js,c/4/c4ad18ed7ed5eac0793f13064468350c015e5ca8
-D
 lib/lightbox.min.css,9/3/9354eded2daccb26b45a1b7b5bcd8e0801372e60
 O
 lib/lightbox-plus-jquery.min.js,3/a/3accd0edbd802f63a003e778b89f7cdb88d8960b
@@ -57,3 +55,14 @@ I
 _locales/hr/messages.json,e/1/e13618b035246abd46da75967cedab3dc81d5ecf
 ?
 setup/apiKey.js,2/8/28fae6ccdd80c6b4845f5bd0a13a506f0e2df50e
+:
+
+.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
+5
+notes,3/a/3add7b9612102f2a7dbe4ed4fe886e07e847c24d
+K
+lib/bootstrap.bundle.min.js,3/7/375a79f4b051f1968ea023b14789fb959a96c9d8
+D
+setup/permissions.js,f/a/faf4b1c68fac20e6e7fa267dee527d8fec19de6f
+?
+setup/allSet.js,a/2/a2586bf57b9061162109ecf5a9d5402a5115c78f
