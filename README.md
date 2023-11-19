@@ -47,19 +47,11 @@ Contributions are welcome! If you're interested in enhancing online security and
 
 ## Screenshots
 
-### Safe Website
-![Safe Website](https://addons.mozilla.org/user-media/previews/thumbs/287/287009.jpg?modified=1693495990)
-
-### Malicious Website
-![Malicious Website](https://addons.mozilla.org/user-media/previews/thumbs/287/287011.jpg?modified=1693495990)
-
-### Loading Status
-![Loading Status](https://addons.mozilla.org/user-media/previews/thumbs/287/287012.jpg?modified=1693495990)
-
-### Not Scanned Status
-![Not Scanned Status](https://addons.mozilla.org/user-media/previews/thumbs/287/287008.jpg?modified=1693495990)
-
-### Dangerous Site Page
-![Dangerous Site Page](https://addons.mozilla.org/user-media/previews/thumbs/287/287010.jpg?modified=1693495990)
-
+<div>
+  <img src="https://addons.mozilla.org/user-media/previews/thumbs/287/287009.jpg?modified=1693495990" alt="Safe Website" width="200"/>
+  <img src="https://addons.mozilla.org/user-media/previews/thumbs/287/287011.jpg?modified=1693495990" alt="Malicious Website" width="200"/>
+  <img src="https://addons.mozilla.org/user-media/previews/thumbs/287/287012.jpg?modified=1693495990" alt="Loading Status" width="200"/>
+  <img src="https://addons.mozilla.org/user-media/previews/thumbs/287/287008.jpg?modified=1693495990" alt="Not Scanned Status" width="200"/>
+  <img src="https://addons.mozilla.org/user-media/previews/thumbs/287/287010.jpg?modified=1693495990" alt="Dangerous Site Page" width="200"/>
+</div>
 
