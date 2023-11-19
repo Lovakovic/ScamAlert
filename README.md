@@ -2,6 +2,9 @@
 
 ScamAlert is a Firefox browser extension designed to enhance the security of your browsing experience by monitoring and analyzing visited URLs for potential threats. It is now live on the Firefox Add-on store!
 
+## Store Link
+Find the extension on the Firefox Add-on store: [ScamAlert Firefox Extension](https://addons.mozilla.org/en-US/firefox/addon/scamalert/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search)
+
 ## Overview
 
 Built upon Manifest V3, this extension works silently in the background, ensuring the user doesn't visit malicious sites. Its primary functionality involves:
@@ -25,9 +28,6 @@ Provides a status report, API quota usage, statistics about scanned domains, and
 
 ### Initial Setup Process
 Includes a plain-language explanation, list of required permissions, guidance on registering for a VirusTotal API key, and a setup completion confirmation.
-
-## Store Link
-Find the extension on the Firefox Add-on store: [ScamAlert Firefox Extension](https://addons.mozilla.org/en-US/firefox/addon/scamalert/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search)
 
 ## Motivation
 
